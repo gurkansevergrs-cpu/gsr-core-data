@@ -1,0 +1,42 @@
+name: Refresh GSR CORE events
+
+on:
+  schedule:
+    - cron: "17 3,15 * * *"   # twice a day (03:17 and 15:17 UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Offline tests
+        run: python -m unittest -v test_ingest
+
+      - name: Download and build event files
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+        run: python ingest.py --out site --min-events 50
+
+      - name: Publish to the data branch
+        run: |
+          cd site
+          git init -q -b data
+          git config user.name "gsr-core-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Event data $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" data
