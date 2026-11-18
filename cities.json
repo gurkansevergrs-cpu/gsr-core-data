@@ -1,45 +1,874 @@
 {
-  "_note": "Cities GSR CORE asks Ticketmaster about. Cities that return no events are left out of locations.json automatically, so the app never shows an empty city.",
-  "countries": {
-    "GB": {"currency": "GBP", "name": {"en": "United Kingdom", "tr": "Birleşik Krallık", "de": "Vereinigtes Königreich", "fr": "Royaume-Uni", "es": "Reino Unido", "it": "Regno Unito", "zh": "英国", "ar": "المملكة المتحدة"}},
-    "IE": {"currency": "EUR", "name": {"en": "Ireland", "tr": "İrlanda", "de": "Irland", "fr": "Irlande", "es": "Irlanda", "it": "Irlanda", "zh": "爱尔兰", "ar": "أيرلندا"}},
-    "DE": {"currency": "EUR", "name": {"en": "Germany", "tr": "Almanya", "de": "Deutschland", "fr": "Allemagne", "es": "Alemania", "it": "Germania", "zh": "德国", "ar": "ألمانيا"}},
-    "NL": {"currency": "EUR", "name": {"en": "Netherlands", "tr": "Hollanda", "de": "Niederlande", "fr": "Pays-Bas", "es": "Países Bajos", "it": "Paesi Bassi", "zh": "荷兰", "ar": "هولندا"}},
-    "BE": {"currency": "EUR", "name": {"en": "Belgium", "tr": "Belçika", "de": "Belgien", "fr": "Belgique", "es": "Bélgica", "it": "Belgio", "zh": "比利时", "ar": "بلجيكا"}},
-    "AT": {"currency": "EUR", "name": {"en": "Austria", "tr": "Avusturya", "de": "Österreich", "fr": "Autriche", "es": "Austria", "it": "Austria", "zh": "奥地利", "ar": "النمسا"}},
-    "CH": {"currency": "CHF", "name": {"en": "Switzerland", "tr": "İsviçre", "de": "Schweiz", "fr": "Suisse", "es": "Suiza", "it": "Svizzera", "zh": "瑞士", "ar": "سويسرا"}},
-    "ES": {"currency": "EUR", "name": {"en": "Spain", "tr": "İspanya", "de": "Spanien", "fr": "Espagne", "es": "España", "it": "Spagna", "zh": "西班牙", "ar": "إسبانيا"}},
-    "FR": {"currency": "EUR", "name": {"en": "France", "tr": "Fransa", "de": "Frankreich", "fr": "France", "es": "Francia", "it": "Francia", "zh": "法国", "ar": "فرنسا"}},
-    "IT": {"currency": "EUR", "name": {"en": "Italy", "tr": "İtalya", "de": "Italien", "fr": "Italie", "es": "Italia", "it": "Italia", "zh": "意大利", "ar": "إيطاليا"}},
-    "SE": {"currency": "SEK", "name": {"en": "Sweden", "tr": "İsveç", "de": "Schweden", "fr": "Suède", "es": "Suecia", "it": "Svezia", "zh": "瑞典", "ar": "السويد"}},
-    "DK": {"currency": "DKK", "name": {"en": "Denmark", "tr": "Danimarka", "de": "Dänemark", "fr": "Danemark", "es": "Dinamarca", "it": "Danimarca", "zh": "丹麦", "ar": "الدنمارك"}},
-    "US": {"currency": "USD", "name": {"en": "United States", "tr": "Amerika Birleşik Devletleri", "de": "Vereinigte Staaten", "fr": "États-Unis", "es": "Estados Unidos", "it": "Stati Uniti", "zh": "美国", "ar": "الولايات المتحدة"}},
-    "CA": {"currency": "CAD", "name": {"en": "Canada", "tr": "Kanada", "de": "Kanada", "fr": "Canada", "es": "Canadá", "it": "Canada", "zh": "加拿大", "ar": "كندا"}},
-    "AU": {"currency": "AUD", "name": {"en": "Australia", "tr": "Avustralya", "de": "Australien", "fr": "Australie", "es": "Australia", "it": "Australia", "zh": "澳大利亚", "ar": "أستراليا"}},
-    "TR": {"currency": "TRY", "name": {"en": "Türkiye", "tr": "Türkiye", "de": "Türkei", "fr": "Turquie", "es": "Turquía", "it": "Turchia", "zh": "土耳其", "ar": "تركيا"}}
+ "_note": "Cities GSR CORE asks Ticketmaster about. Cities that return no events are left out of locations.json automatically, so the app never shows an empty city.",
+ "countries": {
+  "GB": {
+   "currency": "GBP",
+   "name": {
+    "en": "United Kingdom",
+    "tr": "Birleşik Krallık",
+    "de": "Vereinigtes Königreich",
+    "fr": "Royaume-Uni",
+    "es": "Reino Unido",
+    "it": "Regno Unito",
+    "zh": "英国",
+    "ar": "المملكة المتحدة"
+   }
   },
-  "cities": [
-    {"id": "gb-london", "country_code": "GB", "timezone": "Europe/London", "lat": 51.5074, "lng": -0.1278, "radius_km": 20, "name": {"en": "London", "tr": "Londra", "de": "London", "fr": "Londres", "es": "Londres", "it": "Londra", "zh": "伦敦", "ar": "لندن"}},
-    {"id": "gb-manchester", "country_code": "GB", "timezone": "Europe/London", "lat": 53.4808, "lng": -2.2426, "radius_km": 15, "name": {"en": "Manchester", "tr": "Manchester", "de": "Manchester", "fr": "Manchester", "es": "Mánchester", "it": "Manchester", "zh": "曼彻斯特", "ar": "مانشستر"}},
-    {"id": "ie-dublin", "country_code": "IE", "timezone": "Europe/Dublin", "lat": 53.3498, "lng": -6.2603, "radius_km": 15, "name": {"en": "Dublin", "tr": "Dublin", "de": "Dublin", "fr": "Dublin", "es": "Dublín", "it": "Dublino", "zh": "都柏林", "ar": "دبلن"}},
-    {"id": "de-berlin", "country_code": "DE", "timezone": "Europe/Berlin", "lat": 52.52, "lng": 13.405, "radius_km": 20, "name": {"en": "Berlin", "tr": "Berlin", "de": "Berlin", "fr": "Berlin", "es": "Berlín", "it": "Berlino", "zh": "柏林", "ar": "برلين"}},
-    {"id": "de-hamburg", "country_code": "DE", "timezone": "Europe/Berlin", "lat": 53.5511, "lng": 9.9937, "radius_km": 15, "name": {"en": "Hamburg", "tr": "Hamburg", "de": "Hamburg", "fr": "Hambourg", "es": "Hamburgo", "it": "Amburgo", "zh": "汉堡", "ar": "هامبورغ"}},
-    {"id": "de-munich", "country_code": "DE", "timezone": "Europe/Berlin", "lat": 48.1351, "lng": 11.582, "radius_km": 15, "name": {"en": "Munich", "tr": "Münih", "de": "München", "fr": "Munich", "es": "Múnich", "it": "Monaco di Baviera", "zh": "慕尼黑", "ar": "ميونخ"}},
-    {"id": "nl-amsterdam", "country_code": "NL", "timezone": "Europe/Amsterdam", "lat": 52.3676, "lng": 4.9041, "radius_km": 15, "name": {"en": "Amsterdam", "tr": "Amsterdam", "de": "Amsterdam", "fr": "Amsterdam", "es": "Ámsterdam", "it": "Amsterdam", "zh": "阿姆斯特丹", "ar": "أمستردام"}},
-    {"id": "be-brussels", "country_code": "BE", "timezone": "Europe/Brussels", "lat": 50.8503, "lng": 4.3517, "radius_km": 15, "name": {"en": "Brussels", "tr": "Brüksel", "de": "Brüssel", "fr": "Bruxelles", "es": "Bruselas", "it": "Bruxelles", "zh": "布鲁塞尔", "ar": "بروكسل"}},
-    {"id": "at-vienna", "country_code": "AT", "timezone": "Europe/Vienna", "lat": 48.2082, "lng": 16.3738, "radius_km": 15, "name": {"en": "Vienna", "tr": "Viyana", "de": "Wien", "fr": "Vienne", "es": "Viena", "it": "Vienna", "zh": "维也纳", "ar": "فيينا"}},
-    {"id": "ch-zurich", "country_code": "CH", "timezone": "Europe/Zurich", "lat": 47.3769, "lng": 8.5417, "radius_km": 15, "name": {"en": "Zurich", "tr": "Zürih", "de": "Zürich", "fr": "Zurich", "es": "Zúrich", "it": "Zurigo", "zh": "苏黎世", "ar": "زيورخ"}},
-    {"id": "es-madrid", "country_code": "ES", "timezone": "Europe/Madrid", "lat": 40.4168, "lng": -3.7038, "radius_km": 15, "name": {"en": "Madrid", "tr": "Madrid", "de": "Madrid", "fr": "Madrid", "es": "Madrid", "it": "Madrid", "zh": "马德里", "ar": "مدريد"}},
-    {"id": "es-barcelona", "country_code": "ES", "timezone": "Europe/Madrid", "lat": 41.3874, "lng": 2.1686, "radius_km": 15, "name": {"en": "Barcelona", "tr": "Barselona", "de": "Barcelona", "fr": "Barcelone", "es": "Barcelona", "it": "Barcellona", "zh": "巴塞罗那", "ar": "برشلونة"}},
-    {"id": "fr-paris", "country_code": "FR", "timezone": "Europe/Paris", "lat": 48.8566, "lng": 2.3522, "radius_km": 20, "name": {"en": "Paris", "tr": "Paris", "de": "Paris", "fr": "Paris", "es": "París", "it": "Parigi", "zh": "巴黎", "ar": "باريس"}},
-    {"id": "it-milan", "country_code": "IT", "timezone": "Europe/Rome", "lat": 45.4642, "lng": 9.19, "radius_km": 15, "name": {"en": "Milan", "tr": "Milano", "de": "Mailand", "fr": "Milan", "es": "Milán", "it": "Milano", "zh": "米兰", "ar": "ميلانو"}},
-    {"id": "se-stockholm", "country_code": "SE", "timezone": "Europe/Stockholm", "lat": 59.3293, "lng": 18.0686, "radius_km": 15, "name": {"en": "Stockholm", "tr": "Stockholm", "de": "Stockholm", "fr": "Stockholm", "es": "Estocolmo", "it": "Stoccolma", "zh": "斯德哥尔摩", "ar": "ستوكهولم"}},
-    {"id": "dk-copenhagen", "country_code": "DK", "timezone": "Europe/Copenhagen", "lat": 55.6761, "lng": 12.5683, "radius_km": 15, "name": {"en": "Copenhagen", "tr": "Kopenhag", "de": "Kopenhagen", "fr": "Copenhague", "es": "Copenhague", "it": "Copenaghen", "zh": "哥本哈根", "ar": "كوبنهاغن"}},
-    {"id": "us-new-york", "country_code": "US", "timezone": "America/New_York", "lat": 40.7128, "lng": -74.006, "radius_km": 15, "name": {"en": "New York", "tr": "New York", "de": "New York", "fr": "New York", "es": "Nueva York", "it": "New York", "zh": "纽约", "ar": "نيويورك"}},
-    {"id": "us-los-angeles", "country_code": "US", "timezone": "America/Los_Angeles", "lat": 34.0522, "lng": -118.2437, "radius_km": 25, "name": {"en": "Los Angeles", "tr": "Los Angeles", "de": "Los Angeles", "fr": "Los Angeles", "es": "Los Ángeles", "it": "Los Angeles", "zh": "洛杉矶", "ar": "لوس أنجلوس"}},
-    {"id": "us-chicago", "country_code": "US", "timezone": "America/Chicago", "lat": 41.8781, "lng": -87.6298, "radius_km": 20, "name": {"en": "Chicago", "tr": "Chicago", "de": "Chicago", "fr": "Chicago", "es": "Chicago", "it": "Chicago", "zh": "芝加哥", "ar": "شيكاغو"}},
-    {"id": "ca-toronto", "country_code": "CA", "timezone": "America/Toronto", "lat": 43.6532, "lng": -79.3832, "radius_km": 20, "name": {"en": "Toronto", "tr": "Toronto", "de": "Toronto", "fr": "Toronto", "es": "Toronto", "it": "Toronto", "zh": "多伦多", "ar": "تورونتو"}},
-    {"id": "au-sydney", "country_code": "AU", "timezone": "Australia/Sydney", "lat": -33.8688, "lng": 151.2093, "radius_km": 25, "name": {"en": "Sydney", "tr": "Sidney", "de": "Sydney", "fr": "Sydney", "es": "Sídney", "it": "Sydney", "zh": "悉尼", "ar": "سيدني"}},
-    {"id": "tr-istanbul", "country_code": "TR", "timezone": "Europe/Istanbul", "lat": 41.0082, "lng": 28.9784, "radius_km": 30, "name": {"en": "Istanbul", "tr": "İstanbul", "de": "Istanbul", "fr": "Istanbul", "es": "Estambul", "it": "Istanbul", "zh": "伊斯坦布尔", "ar": "إسطنبول"}}
-  ]
+  "IE": {
+   "currency": "EUR",
+   "name": {
+    "en": "Ireland",
+    "tr": "İrlanda",
+    "de": "Irland",
+    "fr": "Irlande",
+    "es": "Irlanda",
+    "it": "Irlanda",
+    "zh": "爱尔兰",
+    "ar": "أيرلندا"
+   }
+  },
+  "DE": {
+   "currency": "EUR",
+   "name": {
+    "en": "Germany",
+    "tr": "Almanya",
+    "de": "Deutschland",
+    "fr": "Allemagne",
+    "es": "Alemania",
+    "it": "Germania",
+    "zh": "德国",
+    "ar": "ألمانيا"
+   }
+  },
+  "NL": {
+   "currency": "EUR",
+   "name": {
+    "en": "Netherlands",
+    "tr": "Hollanda",
+    "de": "Niederlande",
+    "fr": "Pays-Bas",
+    "es": "Países Bajos",
+    "it": "Paesi Bassi",
+    "zh": "荷兰",
+    "ar": "هولندا"
+   }
+  },
+  "BE": {
+   "currency": "EUR",
+   "name": {
+    "en": "Belgium",
+    "tr": "Belçika",
+    "de": "Belgien",
+    "fr": "Belgique",
+    "es": "Bélgica",
+    "it": "Belgio",
+    "zh": "比利时",
+    "ar": "بلجيكا"
+   }
+  },
+  "AT": {
+   "currency": "EUR",
+   "name": {
+    "en": "Austria",
+    "tr": "Avusturya",
+    "de": "Österreich",
+    "fr": "Autriche",
+    "es": "Austria",
+    "it": "Austria",
+    "zh": "奥地利",
+    "ar": "النمسا"
+   }
+  },
+  "CH": {
+   "currency": "CHF",
+   "name": {
+    "en": "Switzerland",
+    "tr": "İsviçre",
+    "de": "Schweiz",
+    "fr": "Suisse",
+    "es": "Suiza",
+    "it": "Svizzera",
+    "zh": "瑞士",
+    "ar": "سويسرا"
+   }
+  },
+  "ES": {
+   "currency": "EUR",
+   "name": {
+    "en": "Spain",
+    "tr": "İspanya",
+    "de": "Spanien",
+    "fr": "Espagne",
+    "es": "España",
+    "it": "Spagna",
+    "zh": "西班牙",
+    "ar": "إسبانيا"
+   }
+  },
+  "FR": {
+   "currency": "EUR",
+   "name": {
+    "en": "France",
+    "tr": "Fransa",
+    "de": "Frankreich",
+    "fr": "France",
+    "es": "Francia",
+    "it": "Francia",
+    "zh": "法国",
+    "ar": "فرنسا"
+   }
+  },
+  "IT": {
+   "currency": "EUR",
+   "name": {
+    "en": "Italy",
+    "tr": "İtalya",
+    "de": "Italien",
+    "fr": "Italie",
+    "es": "Italia",
+    "it": "Italia",
+    "zh": "意大利",
+    "ar": "إيطاليا"
+   }
+  },
+  "SE": {
+   "currency": "SEK",
+   "name": {
+    "en": "Sweden",
+    "tr": "İsveç",
+    "de": "Schweden",
+    "fr": "Suède",
+    "es": "Suecia",
+    "it": "Svezia",
+    "zh": "瑞典",
+    "ar": "السويد"
+   }
+  },
+  "DK": {
+   "currency": "DKK",
+   "name": {
+    "en": "Denmark",
+    "tr": "Danimarka",
+    "de": "Dänemark",
+    "fr": "Danemark",
+    "es": "Dinamarca",
+    "it": "Danimarca",
+    "zh": "丹麦",
+    "ar": "الدنمارك"
+   }
+  },
+  "US": {
+   "currency": "USD",
+   "name": {
+    "en": "United States",
+    "tr": "Amerika Birleşik Devletleri",
+    "de": "Vereinigte Staaten",
+    "fr": "États-Unis",
+    "es": "Estados Unidos",
+    "it": "Stati Uniti",
+    "zh": "美国",
+    "ar": "الولايات المتحدة"
+   }
+  },
+  "CA": {
+   "currency": "CAD",
+   "name": {
+    "en": "Canada",
+    "tr": "Kanada",
+    "de": "Kanada",
+    "fr": "Canada",
+    "es": "Canadá",
+    "it": "Canada",
+    "zh": "加拿大",
+    "ar": "كندا"
+   }
+  },
+  "AU": {
+   "currency": "AUD",
+   "name": {
+    "en": "Australia",
+    "tr": "Avustralya",
+    "de": "Australien",
+    "fr": "Australie",
+    "es": "Australia",
+    "it": "Australia",
+    "zh": "澳大利亚",
+    "ar": "أستراليا"
+   }
+  },
+  "TR": {
+   "currency": "TRY",
+   "name": {
+    "en": "Türkiye",
+    "tr": "Türkiye",
+    "de": "Türkei",
+    "fr": "Turquie",
+    "es": "Turquía",
+    "it": "Turchia",
+    "zh": "土耳其",
+    "ar": "تركيا"
+   }
+  },
+  "CZ": {
+   "currency": "CZK",
+   "name": {
+    "en": "Czechia",
+    "tr": "Çekya",
+    "de": "Tschechien",
+    "fr": "Tchéquie",
+    "es": "Chequia",
+    "it": "Cechia",
+    "zh": "捷克",
+    "ar": "التشيك"
+   }
+  },
+  "HU": {
+   "currency": "HUF",
+   "name": {
+    "en": "Hungary",
+    "tr": "Macaristan",
+    "de": "Ungarn",
+    "fr": "Hongrie",
+    "es": "Hungría",
+    "it": "Ungheria",
+    "zh": "匈牙利",
+    "ar": "المجر"
+   }
+  },
+  "GR": {
+   "currency": "EUR",
+   "name": {
+    "en": "Greece",
+    "tr": "Yunanistan",
+    "de": "Griechenland",
+    "fr": "Grèce",
+    "es": "Grecia",
+    "it": "Grecia",
+    "zh": "希腊",
+    "ar": "اليونان"
+   }
+  },
+  "PT": {
+   "currency": "EUR",
+   "name": {
+    "en": "Portugal",
+    "tr": "Portekiz",
+    "de": "Portugal",
+    "fr": "Portugal",
+    "es": "Portugal",
+    "it": "Portogallo",
+    "zh": "葡萄牙",
+    "ar": "البرتغال"
+   }
+  },
+  "AE": {
+   "currency": "AED",
+   "name": {
+    "en": "United Arab Emirates",
+    "tr": "Birleşik Arap Emirlikleri",
+    "de": "Vereinigte Arabische Emirate",
+    "fr": "Émirats arabes unis",
+    "es": "Emiratos Árabes Unidos",
+    "it": "Emirati Arabi Uniti",
+    "zh": "阿联酋",
+    "ar": "الإمارات العربية المتحدة"
+   }
+  }
+ },
+ "cities": [
+  {
+   "id": "gb-london",
+   "country_code": "GB",
+   "timezone": "Europe/London",
+   "lat": 51.5074,
+   "lng": -0.1278,
+   "radius_km": 20,
+   "name": {
+    "en": "London",
+    "tr": "Londra",
+    "de": "London",
+    "fr": "Londres",
+    "es": "Londres",
+    "it": "Londra",
+    "zh": "伦敦",
+    "ar": "لندن"
+   }
+  },
+  {
+   "id": "gb-manchester",
+   "country_code": "GB",
+   "timezone": "Europe/London",
+   "lat": 53.4808,
+   "lng": -2.2426,
+   "radius_km": 15,
+   "name": {
+    "en": "Manchester",
+    "tr": "Manchester",
+    "de": "Manchester",
+    "fr": "Manchester",
+    "es": "Mánchester",
+    "it": "Manchester",
+    "zh": "曼彻斯特",
+    "ar": "مانشستر"
+   }
+  },
+  {
+   "id": "ie-dublin",
+   "country_code": "IE",
+   "timezone": "Europe/Dublin",
+   "lat": 53.3498,
+   "lng": -6.2603,
+   "radius_km": 15,
+   "name": {
+    "en": "Dublin",
+    "tr": "Dublin",
+    "de": "Dublin",
+    "fr": "Dublin",
+    "es": "Dublín",
+    "it": "Dublino",
+    "zh": "都柏林",
+    "ar": "دبلن"
+   }
+  },
+  {
+   "id": "de-berlin",
+   "country_code": "DE",
+   "timezone": "Europe/Berlin",
+   "lat": 52.52,
+   "lng": 13.405,
+   "radius_km": 20,
+   "name": {
+    "en": "Berlin",
+    "tr": "Berlin",
+    "de": "Berlin",
+    "fr": "Berlin",
+    "es": "Berlín",
+    "it": "Berlino",
+    "zh": "柏林",
+    "ar": "برلين"
+   }
+  },
+  {
+   "id": "de-hamburg",
+   "country_code": "DE",
+   "timezone": "Europe/Berlin",
+   "lat": 53.5511,
+   "lng": 9.9937,
+   "radius_km": 15,
+   "name": {
+    "en": "Hamburg",
+    "tr": "Hamburg",
+    "de": "Hamburg",
+    "fr": "Hambourg",
+    "es": "Hamburgo",
+    "it": "Amburgo",
+    "zh": "汉堡",
+    "ar": "هامبورغ"
+   }
+  },
+  {
+   "id": "de-munich",
+   "country_code": "DE",
+   "timezone": "Europe/Berlin",
+   "lat": 48.1351,
+   "lng": 11.582,
+   "radius_km": 15,
+   "name": {
+    "en": "Munich",
+    "tr": "Münih",
+    "de": "München",
+    "fr": "Munich",
+    "es": "Múnich",
+    "it": "Monaco di Baviera",
+    "zh": "慕尼黑",
+    "ar": "ميونخ"
+   }
+  },
+  {
+   "id": "nl-amsterdam",
+   "country_code": "NL",
+   "timezone": "Europe/Amsterdam",
+   "lat": 52.3676,
+   "lng": 4.9041,
+   "radius_km": 15,
+   "name": {
+    "en": "Amsterdam",
+    "tr": "Amsterdam",
+    "de": "Amsterdam",
+    "fr": "Amsterdam",
+    "es": "Ámsterdam",
+    "it": "Amsterdam",
+    "zh": "阿姆斯特丹",
+    "ar": "أمستردام"
+   }
+  },
+  {
+   "id": "be-brussels",
+   "country_code": "BE",
+   "timezone": "Europe/Brussels",
+   "lat": 50.8503,
+   "lng": 4.3517,
+   "radius_km": 15,
+   "name": {
+    "en": "Brussels",
+    "tr": "Brüksel",
+    "de": "Brüssel",
+    "fr": "Bruxelles",
+    "es": "Bruselas",
+    "it": "Bruxelles",
+    "zh": "布鲁塞尔",
+    "ar": "بروكسل"
+   }
+  },
+  {
+   "id": "at-vienna",
+   "country_code": "AT",
+   "timezone": "Europe/Vienna",
+   "lat": 48.2082,
+   "lng": 16.3738,
+   "radius_km": 15,
+   "name": {
+    "en": "Vienna",
+    "tr": "Viyana",
+    "de": "Wien",
+    "fr": "Vienne",
+    "es": "Viena",
+    "it": "Vienna",
+    "zh": "维也纳",
+    "ar": "فيينا"
+   }
+  },
+  {
+   "id": "ch-zurich",
+   "country_code": "CH",
+   "timezone": "Europe/Zurich",
+   "lat": 47.3769,
+   "lng": 8.5417,
+   "radius_km": 15,
+   "name": {
+    "en": "Zurich",
+    "tr": "Zürih",
+    "de": "Zürich",
+    "fr": "Zurich",
+    "es": "Zúrich",
+    "it": "Zurigo",
+    "zh": "苏黎世",
+    "ar": "زيورخ"
+   }
+  },
+  {
+   "id": "es-madrid",
+   "country_code": "ES",
+   "timezone": "Europe/Madrid",
+   "lat": 40.4168,
+   "lng": -3.7038,
+   "radius_km": 15,
+   "name": {
+    "en": "Madrid",
+    "tr": "Madrid",
+    "de": "Madrid",
+    "fr": "Madrid",
+    "es": "Madrid",
+    "it": "Madrid",
+    "zh": "马德里",
+    "ar": "مدريد"
+   }
+  },
+  {
+   "id": "es-barcelona",
+   "country_code": "ES",
+   "timezone": "Europe/Madrid",
+   "lat": 41.3874,
+   "lng": 2.1686,
+   "radius_km": 15,
+   "name": {
+    "en": "Barcelona",
+    "tr": "Barselona",
+    "de": "Barcelona",
+    "fr": "Barcelone",
+    "es": "Barcelona",
+    "it": "Barcellona",
+    "zh": "巴塞罗那",
+    "ar": "برشلونة"
+   }
+  },
+  {
+   "id": "fr-paris",
+   "country_code": "FR",
+   "timezone": "Europe/Paris",
+   "lat": 48.8566,
+   "lng": 2.3522,
+   "radius_km": 20,
+   "name": {
+    "en": "Paris",
+    "tr": "Paris",
+    "de": "Paris",
+    "fr": "Paris",
+    "es": "París",
+    "it": "Parigi",
+    "zh": "巴黎",
+    "ar": "باريس"
+   }
+  },
+  {
+   "id": "it-milan",
+   "country_code": "IT",
+   "timezone": "Europe/Rome",
+   "lat": 45.4642,
+   "lng": 9.19,
+   "radius_km": 15,
+   "name": {
+    "en": "Milan",
+    "tr": "Milano",
+    "de": "Mailand",
+    "fr": "Milan",
+    "es": "Milán",
+    "it": "Milano",
+    "zh": "米兰",
+    "ar": "ميلانو"
+   }
+  },
+  {
+   "id": "se-stockholm",
+   "country_code": "SE",
+   "timezone": "Europe/Stockholm",
+   "lat": 59.3293,
+   "lng": 18.0686,
+   "radius_km": 15,
+   "name": {
+    "en": "Stockholm",
+    "tr": "Stockholm",
+    "de": "Stockholm",
+    "fr": "Stockholm",
+    "es": "Estocolmo",
+    "it": "Stoccolma",
+    "zh": "斯德哥尔摩",
+    "ar": "ستوكهولم"
+   }
+  },
+  {
+   "id": "dk-copenhagen",
+   "country_code": "DK",
+   "timezone": "Europe/Copenhagen",
+   "lat": 55.6761,
+   "lng": 12.5683,
+   "radius_km": 15,
+   "name": {
+    "en": "Copenhagen",
+    "tr": "Kopenhag",
+    "de": "Kopenhagen",
+    "fr": "Copenhague",
+    "es": "Copenhague",
+    "it": "Copenaghen",
+    "zh": "哥本哈根",
+    "ar": "كوبنهاغن"
+   }
+  },
+  {
+   "id": "us-new-york",
+   "country_code": "US",
+   "timezone": "America/New_York",
+   "lat": 40.7128,
+   "lng": -74.006,
+   "radius_km": 15,
+   "name": {
+    "en": "New York",
+    "tr": "New York",
+    "de": "New York",
+    "fr": "New York",
+    "es": "Nueva York",
+    "it": "New York",
+    "zh": "纽约",
+    "ar": "نيويورك"
+   }
+  },
+  {
+   "id": "us-los-angeles",
+   "country_code": "US",
+   "timezone": "America/Los_Angeles",
+   "lat": 34.0522,
+   "lng": -118.2437,
+   "radius_km": 25,
+   "name": {
+    "en": "Los Angeles",
+    "tr": "Los Angeles",
+    "de": "Los Angeles",
+    "fr": "Los Angeles",
+    "es": "Los Ángeles",
+    "it": "Los Angeles",
+    "zh": "洛杉矶",
+    "ar": "لوس أنجلوس"
+   }
+  },
+  {
+   "id": "us-chicago",
+   "country_code": "US",
+   "timezone": "America/Chicago",
+   "lat": 41.8781,
+   "lng": -87.6298,
+   "radius_km": 20,
+   "name": {
+    "en": "Chicago",
+    "tr": "Chicago",
+    "de": "Chicago",
+    "fr": "Chicago",
+    "es": "Chicago",
+    "it": "Chicago",
+    "zh": "芝加哥",
+    "ar": "شيكاغو"
+   }
+  },
+  {
+   "id": "ca-toronto",
+   "country_code": "CA",
+   "timezone": "America/Toronto",
+   "lat": 43.6532,
+   "lng": -79.3832,
+   "radius_km": 20,
+   "name": {
+    "en": "Toronto",
+    "tr": "Toronto",
+    "de": "Toronto",
+    "fr": "Toronto",
+    "es": "Toronto",
+    "it": "Toronto",
+    "zh": "多伦多",
+    "ar": "تورونتو"
+   }
+  },
+  {
+   "id": "au-sydney",
+   "country_code": "AU",
+   "timezone": "Australia/Sydney",
+   "lat": -33.8688,
+   "lng": 151.2093,
+   "radius_km": 25,
+   "name": {
+    "en": "Sydney",
+    "tr": "Sidney",
+    "de": "Sydney",
+    "fr": "Sydney",
+    "es": "Sídney",
+    "it": "Sydney",
+    "zh": "悉尼",
+    "ar": "سيدني"
+   }
+  },
+  {
+   "id": "tr-istanbul",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.0082,
+   "lng": 28.9784,
+   "radius_km": 30,
+   "name": {
+    "en": "Istanbul",
+    "tr": "İstanbul",
+    "de": "Istanbul",
+    "fr": "Istanbul",
+    "es": "Estambul",
+    "it": "Istanbul",
+    "zh": "伊斯坦布尔",
+    "ar": "إسطنبول"
+   }
+  },
+  {
+   "id": "tr-ankara",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.9334,
+   "lng": 32.8597,
+   "radius_km": 25,
+   "name": {
+    "en": "Ankara",
+    "tr": "Ankara",
+    "de": "Ankara",
+    "fr": "Ankara",
+    "es": "Ankara",
+    "it": "Ankara",
+    "zh": "安卡拉",
+    "ar": "أنقرة"
+   }
+  },
+  {
+   "id": "tr-izmir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.4237,
+   "lng": 27.1428,
+   "radius_km": 25,
+   "name": {
+    "en": "Izmir",
+    "tr": "İzmir",
+    "de": "Izmir",
+    "fr": "Izmir",
+    "es": "Esmirna",
+    "it": "Smirne",
+    "zh": "伊兹密尔",
+    "ar": "إزمير"
+   }
+  },
+  {
+   "id": "tr-antalya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 36.8969,
+   "lng": 30.7133,
+   "radius_km": 25,
+   "name": {
+    "en": "Antalya",
+    "tr": "Antalya",
+    "de": "Antalya",
+    "fr": "Antalya",
+    "es": "Antalya",
+    "it": "Adalia",
+    "zh": "安塔利亚",
+    "ar": "أنطاليا"
+   }
+  },
+  {
+   "id": "tr-bursa",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.1885,
+   "lng": 29.061,
+   "radius_km": 20,
+   "name": {
+    "en": "Bursa",
+    "tr": "Bursa",
+    "de": "Bursa",
+    "fr": "Bursa",
+    "es": "Bursa",
+    "it": "Bursa",
+    "zh": "布尔萨",
+    "ar": "بورصة"
+   }
+  },
+  {
+   "id": "tr-eskisehir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.7767,
+   "lng": 30.5206,
+   "radius_km": 20,
+   "name": {
+    "en": "Eskişehir",
+    "tr": "Eskişehir",
+    "de": "Eskişehir",
+    "fr": "Eskişehir",
+    "es": "Eskişehir",
+    "it": "Eskişehir",
+    "zh": "埃斯基谢希尔",
+    "ar": "إسكي شهير"
+   }
+  },
+  {
+   "id": "it-rome",
+   "country_code": "IT",
+   "timezone": "Europe/Rome",
+   "lat": 41.9028,
+   "lng": 12.4964,
+   "radius_km": 20,
+   "name": {
+    "en": "Rome",
+    "tr": "Roma",
+    "de": "Rom",
+    "fr": "Rome",
+    "es": "Roma",
+    "it": "Roma",
+    "zh": "罗马",
+    "ar": "روما"
+   }
+  },
+  {
+   "id": "cz-prague",
+   "country_code": "CZ",
+   "timezone": "Europe/Prague",
+   "lat": 50.0755,
+   "lng": 14.4378,
+   "radius_km": 15,
+   "name": {
+    "en": "Prague",
+    "tr": "Prag",
+    "de": "Prag",
+    "fr": "Prague",
+    "es": "Praga",
+    "it": "Praga",
+    "zh": "布拉格",
+    "ar": "براغ"
+   }
+  },
+  {
+   "id": "hu-budapest",
+   "country_code": "HU",
+   "timezone": "Europe/Budapest",
+   "lat": 47.4979,
+   "lng": 19.0402,
+   "radius_km": 15,
+   "name": {
+    "en": "Budapest",
+    "tr": "Budapeşte",
+    "de": "Budapest",
+    "fr": "Budapest",
+    "es": "Budapest",
+    "it": "Budapest",
+    "zh": "布达佩斯",
+    "ar": "بودابست"
+   }
+  },
+  {
+   "id": "gr-athens",
+   "country_code": "GR",
+   "timezone": "Europe/Athens",
+   "lat": 37.9838,
+   "lng": 23.7275,
+   "radius_km": 20,
+   "name": {
+    "en": "Athens",
+    "tr": "Atina",
+    "de": "Athen",
+    "fr": "Athènes",
+    "es": "Atenas",
+    "it": "Atene",
+    "zh": "雅典",
+    "ar": "أثينا"
+   }
+  },
+  {
+   "id": "pt-lisbon",
+   "country_code": "PT",
+   "timezone": "Europe/Lisbon",
+   "lat": 38.7223,
+   "lng": -9.1393,
+   "radius_km": 15,
+   "name": {
+    "en": "Lisbon",
+    "tr": "Lizbon",
+    "de": "Lissabon",
+    "fr": "Lisbonne",
+    "es": "Lisboa",
+    "it": "Lisbona",
+    "zh": "里斯本",
+    "ar": "لشبونة"
+   }
+  },
+  {
+   "id": "ae-dubai",
+   "country_code": "AE",
+   "timezone": "Asia/Dubai",
+   "lat": 25.2048,
+   "lng": 55.2708,
+   "radius_km": 30,
+   "name": {
+    "en": "Dubai",
+    "tr": "Dubai",
+    "de": "Dubai",
+    "fr": "Dubaï",
+    "es": "Dubái",
+    "it": "Dubai",
+    "zh": "迪拜",
+    "ar": "دبي"
+   }
+  }
+ ]
 }

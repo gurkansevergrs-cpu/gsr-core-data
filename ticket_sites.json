@@ -1,0 +1,649 @@
+{
+ "_note": "Official ticket platforms, venues and museums per country. city = null means the whole country. c = categories: C concerts, S stage (theatre/musical/opera/ballet), E exhibitions. Homepages only, no affiliate parameters.",
+ "sites": [
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Biletix",
+   "url": "https://www.biletix.com",
+   "c": "CSE"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Passo",
+   "url": "https://www.passo.com.tr",
+   "c": "CS"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Biletinial",
+   "url": "https://biletinial.com",
+   "c": "CS"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Mobilet",
+   "url": "https://www.mobilet.com",
+   "c": "CS"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Devlet Opera ve Balesi",
+   "url": "https://www.operabale.gov.tr",
+   "c": "S"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Devlet Tiyatroları",
+   "url": "https://www.devtiyatro.gov.tr",
+   "c": "S"
+  },
+  {
+   "country": "TR",
+   "city": null,
+   "name": "Müzeler (muze.gov.tr)",
+   "url": "https://muze.gov.tr",
+   "c": "E"
+  },
+  {
+   "country": "TR",
+   "city": "tr-istanbul",
+   "name": "İstanbul Şehir Tiyatroları",
+   "url": "https://sehirtiyatrolari.ibb.istanbul",
+   "c": "S"
+  },
+  {
+   "country": "TR",
+   "city": "tr-istanbul",
+   "name": "Zorlu PSM",
+   "url": "https://www.zorlupsm.com",
+   "c": "CS"
+  },
+  {
+   "country": "TR",
+   "city": "tr-istanbul",
+   "name": "İKSV",
+   "url": "https://www.iksv.org",
+   "c": "CSE"
+  },
+  {
+   "country": "TR",
+   "city": "tr-istanbul",
+   "name": "İstanbul Modern",
+   "url": "https://www.istanbulmodern.org",
+   "c": "E"
+  },
+  {
+   "country": "TR",
+   "city": "tr-istanbul",
+   "name": "Pera Müzesi",
+   "url": "https://www.peramuzesi.org.tr",
+   "c": "E"
+  },
+  {
+   "country": "GB",
+   "city": null,
+   "name": "Ticketmaster UK",
+   "url": "https://www.ticketmaster.co.uk",
+   "c": "CSE"
+  },
+  {
+   "country": "GB",
+   "city": null,
+   "name": "See Tickets",
+   "url": "https://www.seetickets.com",
+   "c": "CSE"
+  },
+  {
+   "country": "GB",
+   "city": null,
+   "name": "AXS UK",
+   "url": "https://www.axs.com/uk",
+   "c": "CS"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "National Theatre",
+   "url": "https://www.nationaltheatre.org.uk",
+   "c": "S"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "Royal Ballet and Opera",
+   "url": "https://www.rbo.org.uk",
+   "c": "S"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "Southbank Centre",
+   "url": "https://www.southbankcentre.co.uk",
+   "c": "CSE"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "Barbican",
+   "url": "https://www.barbican.org.uk",
+   "c": "CSE"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "Tate",
+   "url": "https://www.tate.org.uk",
+   "c": "E"
+  },
+  {
+   "country": "GB",
+   "city": "gb-london",
+   "name": "British Museum",
+   "url": "https://www.britishmuseum.org",
+   "c": "E"
+  },
+  {
+   "country": "IE",
+   "city": null,
+   "name": "Ticketmaster Ireland",
+   "url": "https://www.ticketmaster.ie",
+   "c": "CS"
+  },
+  {
+   "country": "IE",
+   "city": "ie-dublin",
+   "name": "Bord Gáis Energy Theatre",
+   "url": "https://www.bordgaisenergytheatre.ie",
+   "c": "S"
+  },
+  {
+   "country": "IE",
+   "city": "ie-dublin",
+   "name": "National Gallery of Ireland",
+   "url": "https://www.nationalgallery.ie",
+   "c": "E"
+  },
+  {
+   "country": "DE",
+   "city": null,
+   "name": "Eventim",
+   "url": "https://www.eventim.de",
+   "c": "CSE"
+  },
+  {
+   "country": "DE",
+   "city": null,
+   "name": "Ticketmaster Deutschland",
+   "url": "https://www.ticketmaster.de",
+   "c": "CS"
+  },
+  {
+   "country": "DE",
+   "city": "de-berlin",
+   "name": "Berliner Philharmoniker",
+   "url": "https://www.berliner-philharmoniker.de",
+   "c": "C"
+  },
+  {
+   "country": "DE",
+   "city": "de-berlin",
+   "name": "Staatsoper Unter den Linden",
+   "url": "https://www.staatsoper-berlin.de",
+   "c": "S"
+  },
+  {
+   "country": "DE",
+   "city": "de-berlin",
+   "name": "Staatliche Museen zu Berlin",
+   "url": "https://www.smb.museum",
+   "c": "E"
+  },
+  {
+   "country": "DE",
+   "city": "de-hamburg",
+   "name": "Elbphilharmonie",
+   "url": "https://www.elbphilharmonie.de",
+   "c": "C"
+  },
+  {
+   "country": "DE",
+   "city": "de-munich",
+   "name": "Bayerische Staatsoper",
+   "url": "https://www.staatsoper.de",
+   "c": "S"
+  },
+  {
+   "country": "NL",
+   "city": null,
+   "name": "Ticketmaster Nederland",
+   "url": "https://www.ticketmaster.nl",
+   "c": "CS"
+  },
+  {
+   "country": "NL",
+   "city": "nl-amsterdam",
+   "name": "Concertgebouw",
+   "url": "https://www.concertgebouw.nl",
+   "c": "C"
+  },
+  {
+   "country": "NL",
+   "city": "nl-amsterdam",
+   "name": "Nationale Opera & Ballet",
+   "url": "https://www.operaballet.nl",
+   "c": "S"
+  },
+  {
+   "country": "NL",
+   "city": "nl-amsterdam",
+   "name": "Rijksmuseum",
+   "url": "https://www.rijksmuseum.nl",
+   "c": "E"
+  },
+  {
+   "country": "BE",
+   "city": null,
+   "name": "Ticketmaster Belgium",
+   "url": "https://www.ticketmaster.be",
+   "c": "CS"
+  },
+  {
+   "country": "BE",
+   "city": "be-brussels",
+   "name": "La Monnaie / De Munt",
+   "url": "https://www.lamonnaie.be",
+   "c": "S"
+  },
+  {
+   "country": "BE",
+   "city": "be-brussels",
+   "name": "Bozar",
+   "url": "https://www.bozar.be",
+   "c": "CE"
+  },
+  {
+   "country": "AT",
+   "city": null,
+   "name": "oeticket",
+   "url": "https://www.oeticket.com",
+   "c": "CSE"
+  },
+  {
+   "country": "AT",
+   "city": "at-vienna",
+   "name": "Wiener Staatsoper",
+   "url": "https://www.wiener-staatsoper.at",
+   "c": "S"
+  },
+  {
+   "country": "AT",
+   "city": "at-vienna",
+   "name": "Musikverein Wien",
+   "url": "https://www.musikverein.at",
+   "c": "C"
+  },
+  {
+   "country": "AT",
+   "city": "at-vienna",
+   "name": "Kunsthistorisches Museum",
+   "url": "https://www.khm.at",
+   "c": "E"
+  },
+  {
+   "country": "CH",
+   "city": null,
+   "name": "Ticketcorner",
+   "url": "https://www.ticketcorner.ch",
+   "c": "CSE"
+  },
+  {
+   "country": "CH",
+   "city": "ch-zurich",
+   "name": "Opernhaus Zürich",
+   "url": "https://www.opernhaus.ch",
+   "c": "S"
+  },
+  {
+   "country": "CH",
+   "city": "ch-zurich",
+   "name": "Tonhalle-Orchester Zürich",
+   "url": "https://www.tonhalle-orchester.ch",
+   "c": "C"
+  },
+  {
+   "country": "CH",
+   "city": "ch-zurich",
+   "name": "Kunsthaus Zürich",
+   "url": "https://www.kunsthaus.ch",
+   "c": "E"
+  },
+  {
+   "country": "ES",
+   "city": null,
+   "name": "Ticketmaster España",
+   "url": "https://www.ticketmaster.es",
+   "c": "CS"
+  },
+  {
+   "country": "ES",
+   "city": null,
+   "name": "Entradas.com",
+   "url": "https://www.entradas.com",
+   "c": "CS"
+  },
+  {
+   "country": "ES",
+   "city": "es-madrid",
+   "name": "Teatro Real",
+   "url": "https://www.teatroreal.es",
+   "c": "S"
+  },
+  {
+   "country": "ES",
+   "city": "es-madrid",
+   "name": "Museo del Prado",
+   "url": "https://www.museodelprado.es",
+   "c": "E"
+  },
+  {
+   "country": "ES",
+   "city": "es-barcelona",
+   "name": "Gran Teatre del Liceu",
+   "url": "https://www.liceubarcelona.cat",
+   "c": "S"
+  },
+  {
+   "country": "FR",
+   "city": null,
+   "name": "Fnac Spectacles",
+   "url": "https://www.fnacspectacles.com",
+   "c": "CSE"
+  },
+  {
+   "country": "FR",
+   "city": null,
+   "name": "Ticketmaster France",
+   "url": "https://www.ticketmaster.fr",
+   "c": "CS"
+  },
+  {
+   "country": "FR",
+   "city": "fr-paris",
+   "name": "Opéra national de Paris",
+   "url": "https://www.operadeparis.fr",
+   "c": "S"
+  },
+  {
+   "country": "FR",
+   "city": "fr-paris",
+   "name": "Philharmonie de Paris",
+   "url": "https://philharmoniedeparis.fr",
+   "c": "C"
+  },
+  {
+   "country": "FR",
+   "city": "fr-paris",
+   "name": "Musée du Louvre",
+   "url": "https://www.louvre.fr",
+   "c": "E"
+  },
+  {
+   "country": "IT",
+   "city": null,
+   "name": "TicketOne",
+   "url": "https://www.ticketone.it",
+   "c": "CSE"
+  },
+  {
+   "country": "IT",
+   "city": "it-milan",
+   "name": "Teatro alla Scala",
+   "url": "https://www.teatroallascala.org",
+   "c": "S"
+  },
+  {
+   "country": "IT",
+   "city": "it-rome",
+   "name": "Teatro dell'Opera di Roma",
+   "url": "https://www.operaroma.it",
+   "c": "S"
+  },
+  {
+   "country": "SE",
+   "city": null,
+   "name": "Ticketmaster Sverige",
+   "url": "https://www.ticketmaster.se",
+   "c": "CS"
+  },
+  {
+   "country": "SE",
+   "city": "se-stockholm",
+   "name": "Kungliga Operan",
+   "url": "https://www.operan.se",
+   "c": "S"
+  },
+  {
+   "country": "SE",
+   "city": "se-stockholm",
+   "name": "Moderna Museet",
+   "url": "https://www.modernamuseet.se",
+   "c": "E"
+  },
+  {
+   "country": "DK",
+   "city": null,
+   "name": "Ticketmaster Danmark",
+   "url": "https://www.ticketmaster.dk",
+   "c": "CS"
+  },
+  {
+   "country": "DK",
+   "city": "dk-copenhagen",
+   "name": "Det Kongelige Teater",
+   "url": "https://kglteater.dk",
+   "c": "S"
+  },
+  {
+   "country": "DK",
+   "city": "dk-copenhagen",
+   "name": "SMK – Statens Museum for Kunst",
+   "url": "https://www.smk.dk",
+   "c": "E"
+  },
+  {
+   "country": "CZ",
+   "city": null,
+   "name": "Ticketportal",
+   "url": "https://www.ticketportal.cz",
+   "c": "CS"
+  },
+  {
+   "country": "CZ",
+   "city": "cz-prague",
+   "name": "Národní divadlo",
+   "url": "https://www.narodni-divadlo.cz",
+   "c": "S"
+  },
+  {
+   "country": "HU",
+   "city": null,
+   "name": "Jegy.hu",
+   "url": "https://www.jegy.hu",
+   "c": "CSE"
+  },
+  {
+   "country": "HU",
+   "city": "hu-budapest",
+   "name": "Hungarian State Opera",
+   "url": "https://www.opera.hu",
+   "c": "S"
+  },
+  {
+   "country": "GR",
+   "city": null,
+   "name": "More.com",
+   "url": "https://www.more.com",
+   "c": "CS"
+  },
+  {
+   "country": "GR",
+   "city": "gr-athens",
+   "name": "Greek National Opera",
+   "url": "https://www.nationalopera.gr",
+   "c": "S"
+  },
+  {
+   "country": "PT",
+   "city": null,
+   "name": "BOL",
+   "url": "https://www.bol.pt",
+   "c": "CS"
+  },
+  {
+   "country": "AE",
+   "city": null,
+   "name": "Platinumlist",
+   "url": "https://dubai.platinumlist.net",
+   "c": "CS"
+  },
+  {
+   "country": "AE",
+   "city": "ae-dubai",
+   "name": "Dubai Opera",
+   "url": "https://www.dubaiopera.com",
+   "c": "CS"
+  },
+  {
+   "country": "US",
+   "city": null,
+   "name": "Ticketmaster",
+   "url": "https://www.ticketmaster.com",
+   "c": "CSE"
+  },
+  {
+   "country": "US",
+   "city": null,
+   "name": "AXS",
+   "url": "https://www.axs.com",
+   "c": "CS"
+  },
+  {
+   "country": "US",
+   "city": "us-new-york",
+   "name": "Broadway.org",
+   "url": "https://www.broadway.org",
+   "c": "S"
+  },
+  {
+   "country": "US",
+   "city": "us-new-york",
+   "name": "The Metropolitan Opera",
+   "url": "https://www.metopera.org",
+   "c": "S"
+  },
+  {
+   "country": "US",
+   "city": "us-new-york",
+   "name": "Carnegie Hall",
+   "url": "https://www.carnegiehall.org",
+   "c": "C"
+  },
+  {
+   "country": "US",
+   "city": "us-new-york",
+   "name": "MoMA",
+   "url": "https://www.moma.org",
+   "c": "E"
+  },
+  {
+   "country": "US",
+   "city": "us-new-york",
+   "name": "The Met Museum",
+   "url": "https://www.metmuseum.org",
+   "c": "E"
+  },
+  {
+   "country": "US",
+   "city": "us-los-angeles",
+   "name": "LA Phil",
+   "url": "https://www.laphil.com",
+   "c": "C"
+  },
+  {
+   "country": "US",
+   "city": "us-los-angeles",
+   "name": "LA Opera",
+   "url": "https://www.laopera.org",
+   "c": "S"
+  },
+  {
+   "country": "US",
+   "city": "us-chicago",
+   "name": "Lyric Opera of Chicago",
+   "url": "https://www.lyricopera.org",
+   "c": "S"
+  },
+  {
+   "country": "US",
+   "city": "us-chicago",
+   "name": "Art Institute of Chicago",
+   "url": "https://www.artic.edu",
+   "c": "E"
+  },
+  {
+   "country": "CA",
+   "city": null,
+   "name": "Ticketmaster Canada",
+   "url": "https://www.ticketmaster.ca",
+   "c": "CS"
+  },
+  {
+   "country": "CA",
+   "city": "ca-toronto",
+   "name": "Canadian Opera Company",
+   "url": "https://www.coc.ca",
+   "c": "S"
+  },
+  {
+   "country": "CA",
+   "city": "ca-toronto",
+   "name": "Art Gallery of Ontario",
+   "url": "https://ago.ca",
+   "c": "E"
+  },
+  {
+   "country": "AU",
+   "city": null,
+   "name": "Ticketek",
+   "url": "https://premier.ticketek.com.au",
+   "c": "CSE"
+  },
+  {
+   "country": "AU",
+   "city": null,
+   "name": "Ticketmaster Australia",
+   "url": "https://www.ticketmaster.com.au",
+   "c": "CS"
+  },
+  {
+   "country": "AU",
+   "city": "au-sydney",
+   "name": "Sydney Opera House",
+   "url": "https://www.sydneyoperahouse.com",
+   "c": "CS"
+  },
+  {
+   "country": "AU",
+   "city": "au-sydney",
+   "name": "Art Gallery of NSW",
+   "url": "https://www.artgallery.nsw.gov.au",
+   "c": "E"
+  }
+ ]
+}
