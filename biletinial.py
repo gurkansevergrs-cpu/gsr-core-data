@@ -46,8 +46,13 @@ def clean(text) -> str:
     return re.sub(r"\s+", " ", html.unescape(str(text or "")).replace("\xa0", " ")).strip()
 
 
-def classify(list_name: str, title: str) -> tuple[str, str | None] | None:
+BALLET_TITLES = ("kugu golu", "findikkiran", "don kisot", "giselle", "uyuyan guzel", "korsan", "bayadere",
+                 "coppelia", "spartakus", "esmeralda", "la sylphide", "bolero", "carmina burana")
+
+
+def classify(list_name: str, title: str, description: str = "") -> tuple[str, str | None] | None:
     low = fold(title)
+    about = fold(description)
     if any(word in low for word in SKIP_WORDS):
         return None
     category, sub = LISTS[list_name]
@@ -68,7 +73,9 @@ def classify(list_name: str, title: str) -> tuple[str, str | None] | None:
     if list_name == "tiyatro":
         return ("THEATRE_MUSICAL", "MUSICAL") if "muzikal" in low or "musical" in low else (category, sub)
     if list_name == "opera-bale":
-        if "bale" in low or "ballet" in low or "dans" in low:
+        # Whole word in the description: "Opera ve Balesi" (the company name) is not a ballet.
+        if "bale" in low or "ballet" in low or "dans" in low or any(t in low for t in BALLET_TITLES) \
+                or re.search(r"\b(bale|ballet)\b", about[:300]):
             return "THEATRE_MUSICAL", "BALLET"
         return "THEATRE_MUSICAL", "OPERA"
     if "festival" in low or "fest " in low:
@@ -162,7 +169,7 @@ def performances(page: str, list_name: str, cities_by_name: dict, city_dto, sync
         start = item.get("startDate")
         if not title or not url or not isinstance(start, str):
             continue
-        category = classify(list_name, title)
+        category = classify(list_name, title, clean(item.get("description")))
         if category is None:
             continue
         try:

@@ -312,6 +312,31 @@ def _interleave(groups: list[list[dict]], cap: int) -> list[dict]:
     return sorted(out, key=_sort_key)
 
 
+import genres  # noqa: E402  (local module)
+
+
+def _fold(text: str) -> str:
+    import unicodedata
+    text = (text or "").replace("İ", "i").replace("I", "ı").lower().replace("ı", "i")
+    text = "".join(ch for ch in unicodedata.normalize("NFKD", text) if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+", " ", text).strip()
+
+
+def _twin(event: dict, same_day: list[dict]) -> dict | None:
+    """An already kept event of the same category on the same day whose title names the same act."""
+    mine = _fold(event["title"])
+    if len(mine) < 4:
+        return None
+    for other in same_day:
+        if other["category"]["id"] != event["category"]["id"]:
+            continue
+        theirs = _fold(other["title"])
+        short, long_ = sorted((mine, theirs), key=len)
+        if len(short) >= 4 and long_.startswith(short[: max(4, min(len(short), 14))]):
+            return other
+    return None
+
+
 def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at: str,
           extra: dict[str, list[dict]] | None = None) -> dict:
     """raw_by_city holds raw Ticketmaster events; extra holds already normalized events (Biletinial)."""
@@ -322,10 +347,22 @@ def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at
         seen, events = set(), []
         candidates = [normalize(raw, city, synced_at) for raw in raw_by_city.get(city_id, [])]
         candidates += (extra or {}).get(city_id, [])
+        by_day: dict[str, list[dict]] = {}
         for event in candidates:
-            if event and event["id"] not in seen and event["status"] == "SCHEDULED":
-                seen.add(event["id"])
-                events.append(event)
+            if not event or event["id"] in seen or event["status"] != "SCHEDULED":
+                continue
+            twin = _twin(event, by_day.get(event["schedule"]["local_date"], []))
+            if twin is not None:
+                # Same show listed by two sources: keep the first (direct seller), borrow the missing type.
+                if not twin.get("subcategory") and event.get("subcategory"):
+                    twin["subcategory"] = event["subcategory"]
+                if "media" not in twin and "media" in event:
+                    twin["media"] = event["media"]
+                continue
+            seen.add(event["id"])
+            by_day.setdefault(event["schedule"]["local_date"], []).append(event)
+            events.append(event)
+        genres.fill(events)   # concerts the source gave no type: keyword / known-artist genre
         events.sort(key=_sort_key)
         if events:
             by_city[city_id] = events[:CITY_CAP]

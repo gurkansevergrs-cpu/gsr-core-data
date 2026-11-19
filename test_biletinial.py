@@ -94,5 +94,13 @@ class BiletinialTest(unittest.TestCase):
             self.assertTrue((Path(tmp) / "v1/events/country-TR.json").exists())
 
 
+
+class BalletTest(unittest.TestCase):
+    def test_ballets_without_the_word_are_found_and_operas_stay_operas(self):
+        self.assertEqual(biletinial.classify("opera-bale", "Kuğu Gölü"), ("THEATRE_MUSICAL", "BALLET"))
+        self.assertEqual(biletinial.classify("opera-bale", "Fındıkkıran"), ("THEATRE_MUSICAL", "BALLET"))
+        self.assertEqual(biletinial.classify("opera-bale", "Tosca", "İzmir Devlet Opera ve Balesi sunar. Puccini'nin operası."),
+                         ("THEATRE_MUSICAL", "OPERA"))
+
 if __name__ == "__main__":
     unittest.main()

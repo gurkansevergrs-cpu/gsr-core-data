@@ -1,4 +1,6 @@
-"""Theatre, opera and ballet in Berlin, Munich and Hamburg from the theatres' own programme pages.
+"""European stages (Berlin, Munich, Hamburg, Vienna, Amsterdam, Paris, Zurich) from the venues' own pages.
+
+Also Amsterdam exhibitions from the city's I amsterdam agenda.
 
 Two kinds of public, machine-readable programme data are used, only where robots.txt allows:
 - schema.org Event data (JSON-LD) on the programme page: Maxim Gorki Theater and berlin.de/tickets
@@ -31,6 +33,9 @@ JSONLD_SOURCES = [
     ("de-berlin", "https://www.berlin.de/tickets/oper/", "berlin.de", "OPERA"),
     ("de-berlin", "https://www.berlin.de/tickets/musical/", "berlin.de", "MUSICAL"),
     ("de-hamburg", "https://www.ohnsorg.de/spielplan/", "Ohnsorg-Theater", "THEATRE"),
+    ("ch-zurich", "https://www.opernhaus.ch/spielplan/kalendarium/", "Opernhaus Zürich", "OPERA"),
+    ("fr-paris", "https://www.theatredelaville-paris.com/fr/spectacles/saison-26-27/theatre", "Théâtre de la Ville", "THEATRE"),
+    ("fr-paris", "https://www.theatredelaville-paris.com/fr/spectacles/saison-26-27/danse", "Théâtre de la Ville", "BALLET"),
 ]
 ICS_SOURCES = [
     ("de-berlin", "https://www.komische-oper-berlin.de/spielplan/", "Komische Oper Berlin", "OPERA"),
@@ -38,10 +43,43 @@ ICS_SOURCES = [
     ("de-munich", "https://www.residenztheater.de/spielplan", "Residenztheater", "THEATRE"),
     ("de-hamburg", "https://www.die-hamburgische-staatsoper.de/de/kalender/oper", "Hamburgische Staatsoper", "OPERA"),
     ("de-hamburg", "https://hamburgballett.die-hamburgische-staatsoper.de/de/kalender/ballett", "Hamburg Ballett", "BALLET"),
+    ("ch-zurich", "https://www.schauspielhaus.ch/de/spielplan/", "Schauspielhaus Zürich", "THEATRE"),
 ]
+# Listing page whose production pages carry the JSON-LD: (city, listing, production-link regex, provider,
+# default subcategory, category).
+DETAIL_SOURCES = [
+    ("at-vienna", "https://www.volksoper.at/spielplan", r"volksoper\.at/produktion/", "Volksoper Wien", "OPERA", "THEATRE_MUSICAL"),
+    ("nl-amsterdam", "https://ita.nl/nl/agenda-stadsschouwburg", r"ita\.nl/nl/voorstellingen/", "Internationaal Theater Amsterdam",
+     "THEATRE", "THEATRE_MUSICAL"),
+    ("fr-paris", "https://www.chatelet.com/programmation/", r"chatelet\.com/programmation/\d\d-\d\d/", "Théâtre du Châtelet",
+     "MUSICAL", "THEATRE_MUSICAL"),
+    ("nl-amsterdam", "https://www.iamsterdam.com/uit/agenda/tentoonstellingen",
+     r"iamsterdam\.com/uit/agenda/tentoonstellingen/[^/]+/[^/?#]+$", "I amsterdam", "ART", "EXHIBITION"),
+]
+DETAIL_SOURCES += [
+    ("fr-paris", "https://www.theatre-odeon.eu/fr", r"theatre-odeon\.eu/fr/saison-\d{4}-\d{4}/spectacles-", "Odéon-Théâtre de l'Europe",
+     "THEATRE", "THEATRE_MUSICAL"),
+    ("be-brussels", "https://www.lamonnaiedemunt.be/fr/calendar", r"lamonnaiedemunt\.be/fr/program/\d+-", "La Monnaie / De Munt",
+     "OPERA", "THEATRE_MUSICAL"),
+]
+DETAIL_PAGES = 40
+# Programme pages without event data whose performance links carry the date (and often the time):
+# (city, listing, link regex with y m d [H M] groups and a 'slug' group, provider, default subcategory).
+URL_DATE_SOURCES = [
+    ("at-vienna", "https://www.burgtheater.at/spielplan",
+     r"/veranstaltungen/(?P<slug>[a-z0-9-]+)/(?P<y>20\d\d)-(?P<m>\d\d)-(?P<d>\d\d)$", "Burgtheater", "THEATRE"),
+    ("hu-budapest", "https://www.opera.hu/en/programme/",
+     r"/programme/20\d\d-20\d\d/(?P<slug>[^/]+)/[a-z-]+-(?P<y>20\d\d)-(?P<m>\d\d)-(?P<d>\d\d)-(?P<H>\d\d)(?P<M>\d\d)/$",
+     "Hungarian State Opera", "OPERA"),
+    ("cz-prague", "https://www.narodni-divadlo.cz/en/programme",
+     r"/en/show/(?P<slug>[^?]+)\?t=(?P<y>20\d\d)-(?P<m>\d\d)-(?P<d>\d\d)-(?P<H>\d\d)-(?P<M>\d\d)$",
+     "National Theatre Prague", "THEATRE"),
+]
+URL_DATE_LINKS = 150
 # Whole words only: "Führung" (guided tour) must not catch "Uraufführung" (premiere).
 SKIP = re.compile(r"\b(führung|führungen|fuehrung|workshop|werkstatt|gespräch|gespraech|einführung|einfuehrung|"
-                  r"probe|kantine|lesung|party|konzert|sinfoniekonzert|kammerkonzert|kammermusik|liederabend|gutschein)\b")
+                  r"probe|kantine|lesung|party|konzert|sinfoniekonzert|kammerkonzert|kammermusik|liederabend|gutschein|"
+                  r"rondleiding|visite|visites|guided tour|tour guidé)\b")
 EVENT_TYPES = ("Event", "TheaterEvent", "MusicEvent", "DanceEvent", "ComedyEvent")
 
 
@@ -71,12 +109,16 @@ def _utc_and_local(start: dt.datetime) -> tuple[str, dt.date, str]:
 
 
 def _event(city: dict, city_dto, synced_at: str, provider: str, title: str, start: dt.datetime, link: str,
-           sub: str, venue: str | None, image: str | None) -> dict:
+           sub: str, venue: str | None, image: str | None, category: str = "THEATRE_MUSICAL",
+           end: dt.date | None = None) -> dict:
     utc, day, time = _utc_and_local(start)
+    schedule = {"start_datetime_utc": utc, "local_date": day.isoformat(), "local_time": time, "is_date_range": False}
+    if end and end > day:   # exhibitions: open across their run, no single show time
+        schedule = {"start_datetime_utc": utc, "local_date": day.isoformat(), "is_date_range": True, "end_date": end.isoformat()}
     event = {
         "id": "de:" + hashlib.sha1(f"{link}|{utc}|{title}".encode()).hexdigest()[:16],
-        "title": title, "category": {"id": "THEATRE_MUSICAL"}, "subcategory": sub, "city": city_dto(city),
-        "schedule": {"start_datetime_utc": utc, "local_date": day.isoformat(), "local_time": time, "is_date_range": False},
+        "title": title, "category": {"id": category}, "subcategory": sub, "city": city_dto(city),
+        "schedule": schedule,
         "ticket_offers": [{"provider": provider, "url": link, "offer_type": "PRIMARY"}],
         "source_attribution": {"primary_source": provider, "last_synced_at": synced_at},
         "status": "SCHEDULED",
@@ -106,8 +148,22 @@ def _walk(node, out):
                 _walk(node[key], out)
 
 
+def _aware(value) -> dt.datetime | None:
+    try:
+        start = dt.datetime.fromisoformat(str(value).replace("Z", "+00:00").replace(".000000", ""))
+    except ValueError:
+        return None
+    if start.tzinfo is None:   # local time without offset (ITA, Opernhaus): the venue's own time zone
+        try:
+            from zoneinfo import ZoneInfo
+            start = start.replace(tzinfo=ZoneInfo("Europe/Berlin"))
+        except Exception:
+            start = start.replace(tzinfo=dt.timezone(dt.timedelta(hours=1)))
+    return start
+
+
 def jsonld_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, provider: str,
-                  default_sub: str, page_url: str) -> list[dict]:
+                  default_sub: str, page_url: str, category: str = "THEATRE_MUSICAL") -> list[dict]:
     items: list = []
     _walk(webfetch.json_ld(page), items)
     host = urlsplit(page_url).netloc
@@ -120,21 +176,51 @@ def jsonld_events(page: str, city: dict, city_dto, synced_at: str, today: dt.dat
             continue
         if "Cancelled" in str(item.get("eventStatus")) or "Postponed" in str(item.get("eventStatus")):
             continue
-        try:
-            start = dt.datetime.fromisoformat(str(item.get("startDate")).replace("Z", "+00:00").replace(".000000", ""))
-        except ValueError:
+        start = _aware(item.get("startDate"))
+        if start is None:
             continue
-        if start.tzinfo is None:
-            continue
-        if not _in_window(_utc_and_local(start)[1], today):
+        end = None
+        if category == "EXHIBITION":
+            finish = _aware(item.get("endDate") or item.get("startDate"))
+            end = _utc_and_local(finish)[1] if finish else None
+            if end is None or end < today or _utc_and_local(start)[1] > today + dt.timedelta(days=HORIZON_DAYS):
+                continue
+            if _utc_and_local(start)[1] < today:   # running now: show it from today
+                start = dt.datetime.combine(today, dt.time(10, 0), tzinfo=start.tzinfo)
+        elif not _in_window(_utc_and_local(start)[1], today):
             continue
         image = item.get("image")
         image = _https(image[0] if isinstance(image, list) and image else image if isinstance(image, str) else None)
         if image:
             image = image.split("?prefix=")[0] if "prefix=staging" in image else image
         venue = clean((item.get("location") or {}).get("name")) if isinstance(item.get("location"), dict) else None
-        out.append(_event(city, city_dto, synced_at, provider, title, start, link,
-                          subcategory(title, default_sub), venue or provider, image))
+        sub = default_sub if category == "EXHIBITION" else subcategory(title, default_sub)
+        out.append(_event(city, city_dto, synced_at, provider, title, start, link, sub, venue or provider, image,
+                          category, end))
+    return out
+
+
+def detail_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, provider: str, default_sub: str,
+                  page_url: str, pattern: str, category: str, fetch=webfetch.get) -> list[dict]:
+    """Follow the listing's production links and read each production page's JSON-LD."""
+    host = urlsplit(page_url).netloc.removeprefix("www.")
+    links = []
+    for raw in re.findall(r'href="([^"#]+)"', page):
+        url = urljoin(page_url, html.unescape(raw))
+        if re.search(pattern, url) and urlsplit(url).netloc.removeprefix("www.") == host and url not in links:
+            links.append(url)
+    out = []
+    for url in links[:DETAIL_PAGES]:
+        detail = fetch(url)
+        if not detail:
+            continue
+        found = jsonld_events(detail, city, city_dto, synced_at, today, provider, default_sub, url, category)
+        if found and not any("media" in e for e in found):
+            image = og_image(detail, url)
+            for e in found:
+                if image:
+                    e["media"] = {"image_url": image, "attribution": provider}
+        out.extend(found)
     return out
 
 
@@ -242,6 +328,54 @@ def ics_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, 
     return out
 
 
+def og_title(page: str | None) -> str | None:
+    if not page:
+        return None
+    match = re.search(r'<meta[^>]+property="og:title"[^>]+content="([^"]+)"', page) or \
+        re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:title"', page)
+    if not match:
+        return None
+    title = clean(match.group(1))
+    return re.split(r"\s+[|–—-]\s+(?=[^|–—-]*$)", title)[0].strip() or None   # drop " | Site name"
+
+
+def url_date_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, provider: str, default_sub: str,
+                    page_url: str, pattern: str, fetch=webfetch.get) -> list[dict]:
+    """Performances from dated links; one production page per title gives the name and poster."""
+    host = urlsplit(page_url).netloc.removeprefix("www.")
+    seen, out, productions = set(), [], {}
+    for raw in re.findall(r'href="([^"#]+)"', page):
+        url = urljoin(page_url, html.unescape(raw))
+        if urlsplit(url).netloc.removeprefix("www.") != host or url in seen:
+            continue
+        match = re.search(pattern, url)
+        if not match:
+            continue
+        seen.add(url)
+        if len(seen) > URL_DATE_LINKS:
+            break
+        parts = match.groupdict()
+        try:
+            naive = dt.datetime(int(parts["y"]), int(parts["m"]), int(parts["d"]), int(parts.get("H") or 19), int(parts.get("M") or 0))
+        except (TypeError, ValueError):
+            continue
+        if not _in_window(naive.date(), today):
+            continue
+        slug = parts["slug"]
+        if slug not in productions:
+            detail = fetch(url)
+            productions[slug] = (og_title(detail), og_image(detail, url))
+        title, image = productions[slug]
+        if not title or skipped(title):
+            continue
+        start = _aware(naive.isoformat())
+        event = _event(city, city_dto, synced_at, provider, title, start, url, subcategory(title, default_sub), provider, image)
+        if not parts.get("H"):
+            event["schedule"].pop("local_time", None)   # the link gives the day only
+        out.append(event)
+    return out
+
+
 def collect(cities: list[dict], city_dto, synced_at: str, today: dt.date | None = None, log=print) -> dict[str, list[dict]]:
     today = today or dt.date.today()
     by_id = {c["id"]: c for c in cities}
@@ -256,5 +390,25 @@ def collect(cities: list[dict], city_dto, synced_at: str, today: dt.date | None 
         found = parse(page, city, city_dto, synced_at, today, provider, sub, url)
         for event in found:
             result.setdefault(city_id, {})[event["id"]] = event
-        log(f"  germany {provider}: {len(found)} performances")
+        log(f"  stages {provider}: {len(found)} performances")
+    for city_id, url, pattern, provider, sub, category in DETAIL_SOURCES:
+        city = by_id.get(city_id)
+        page = webfetch.get(url) if city else None
+        if not page:
+            log(f"  stages {provider}: no page")
+            continue
+        found = detail_events(page, city, city_dto, synced_at, today, provider, sub, url, pattern, category)
+        for event in found:
+            result.setdefault(city_id, {})[event["id"]] = event
+        log(f"  stages {provider}: {len(found)} dates")
+    for city_id, url, pattern, provider, sub in URL_DATE_SOURCES:
+        city = by_id.get(city_id)
+        page = webfetch.get(url) if city else None
+        if not page:
+            log(f"  stages {provider}: no page")
+            continue
+        found = url_date_events(page, city, city_dto, synced_at, today, provider, sub, url, pattern)
+        for event in found:
+            result.setdefault(city_id, {})[event["id"]] = event
+        log(f"  stages {provider}: {len(found)} performances")
     return {city_id: list(events.values()) for city_id, events in result.items()}

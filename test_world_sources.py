@@ -54,7 +54,27 @@ class SongkickTest(unittest.TestCase):
     def test_every_city_outside_turkey_has_a_metro(self):
         cities = json.load(open("cities.json", encoding="utf-8"))["cities"]
         abroad = {c["id"] for c in cities if not c.get("biletinial")}
-        self.assertEqual(abroad, set(songkick.METROS))
+        self.assertTrue(abroad <= set(songkick.METROS))
+        self.assertTrue({"tr-istanbul", "tr-izmir", "tr-ankara"} <= set(songkick.METROS))
+
+    def test_same_concert_from_two_sources_is_kept_once_with_the_genre(self):
+        import ingest
+        city = {"id": "tr-izmir", "country_code": "TR", "timezone": "Europe/Istanbul", "lat": 38.4, "lng": 27.1,
+                "name": {k: "İzmir" for k in ("en", "tr", "de", "fr", "es", "it", "zh", "ar")}}
+        def ev(i, title, sub=None, source="Biletinial"):
+            e = {"id": i, "title": title, "category": {"id": "CONCERT"}, "city": city_dto(city), "status": "SCHEDULED",
+                 "schedule": {"start_datetime_utc": "2026-11-28T18:00:00Z", "local_date": "2026-11-28"},
+                 "ticket_offers": [{"provider": source, "url": "https://x.example/" + i}],
+                 "source_attribution": {"primary_source": source, "last_synced_at": "s"}}
+            if sub: e["subcategory"] = sub
+            return e
+        kept = []
+        for e in [ev("bi:1", "Duman Konseri"), ev("sk:2", "Duman", "ROCK", "Songkick"), ev("sk:3", "Mor ve Ötesi", "ROCK", "Songkick")]:
+            twin = ingest._twin(e, kept)
+            if twin is None: kept.append(e)
+            elif not twin.get("subcategory"): twin["subcategory"] = e.get("subcategory")
+        self.assertEqual([e["id"] for e in kept], ["bi:1", "sk:3"])
+        self.assertEqual(kept[0]["subcategory"], "ROCK")
 
 
 class TodayTixTest(unittest.TestCase):
@@ -72,6 +92,17 @@ class TodayTixTest(unittest.TestCase):
         self.assertEqual(events["Hamilton"]["ticket_offers"][0]["provider"], "TodayTix")
         self.assertEqual(events["Frieze Los Angeles"]["category"]["id"], "EXHIBITION")
 
+
+
+class GenreTest(unittest.TestCase):
+    def test_untyped_concerts_get_a_type_from_the_title_only_when_clear(self):
+        import genres
+        self.assertEqual(genres.concert_genre("Duman Konseri"), "ROCK")
+        self.assertEqual(genres.concert_genre("Floydian Night: A Tribute to Pink Floyd"), "ROCK")
+        self.assertEqual(genres.concert_genre("Fatih Erkoç & Kerem Görsev Jazz Project"), "JAZZ")
+        self.assertEqual(genres.concert_genre("İzmir Devlet Senfoni Orkestrası"), "CLASSICAL")
+        self.assertIsNone(genres.concert_genre("Sydney Opera House Gala"))
+        self.assertIsNone(genres.concert_genre("Nilüfer Belediyesi Konseri"))
 
 if __name__ == "__main__":
     unittest.main()

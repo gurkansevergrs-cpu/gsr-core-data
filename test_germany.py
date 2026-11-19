@@ -91,5 +91,22 @@ class GermanyJsonLdTest(unittest.TestCase):
         self.assertEqual(events[0]["media"]["image_url"], "https://www.ohnsorg.de/p.jpg")
 
 
+
+class UrlDateTest(unittest.TestCase):
+    def test_dated_links_become_performances_with_title_and_poster(self):
+        vienna = dict(HAMBURG, id="at-vienna", country_code="AT")
+        page = ('<a href="/veranstaltungen/hamlet/2026-11-25">x</a><a href="/veranstaltungen/hamlet/2026-11-26">x</a>'
+                '<a href="/index.php/veranstaltungen/fuehrung-spezial/2026-11-27">x</a>')
+        pages = {"https://www.burgtheater.at/veranstaltungen/hamlet/2026-11-25":
+                 '<meta property="og:title" content="Hamlet | Burgtheater"><meta property="og:image" content="/img/h.jpg">',
+                 "https://www.burgtheater.at/index.php/veranstaltungen/fuehrung-spezial/2026-11-27":
+                 '<meta property="og:title" content="Führung Spezial | Burgtheater">'}
+        events = germany.url_date_events(page, vienna, city_dto, "s", TODAY, "Burgtheater", "THEATRE",
+                                         "https://www.burgtheater.at/spielplan", germany.URL_DATE_SOURCES[0][2], fetch=pages.get)
+        self.assertEqual([(e["title"], e["schedule"]["local_date"]) for e in events],
+                         [("Hamlet", "2026-11-25"), ("Hamlet", "2026-11-26")])
+        self.assertNotIn("local_time", events[0]["schedule"])   # the link has no time
+        self.assertEqual(events[0]["media"]["image_url"], "https://www.burgtheater.at/img/h.jpg")
+
 if __name__ == "__main__":
     unittest.main()
