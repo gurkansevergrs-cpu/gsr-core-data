@@ -362,7 +362,8 @@ def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at
         safe = re.sub(r"[^A-Za-z0-9._-]", "_", artist_id)
         _write(out / "v1" / "artists" / f"{safe}.json", {"events": sorted(tours[artist_id], key=_sort_key), "has_more": False})
 
-    meta = {"generated_at": synced_at, "source": SOURCE if not extra else f"{SOURCE}, Biletinial",
+    sources = ([SOURCE] if raw_by_city else []) + (["Biletinial"] if extra else [])
+    meta = {"generated_at": synced_at, "source": ", ".join(sources) or SOURCE,
             "cities": {cid: len(ev) for cid, ev in sorted(by_city.items())},
             "events_total": sum(len(ev) for ev in by_city.values()), "artists": len(ranked)}
     _write(out / "v1" / "meta.json", meta)
