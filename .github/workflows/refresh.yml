@@ -15,7 +15,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
 
       - name: Offline tests
-        run: python -m unittest -v test_ingest test_biletinial test_londontheatre test_world_sources
+        run: python -m unittest -v test_ingest test_biletinial test_londontheatre test_world_sources test_germany
 
       - name: Download and build event files
         env:

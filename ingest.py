@@ -382,8 +382,8 @@ def main(argv=None) -> int:
     parser.add_argument("--config", default=str(Path(__file__).with_name("cities.json")))
     parser.add_argument("--fixture", help="JSON file {city_id: [raw Ticketmaster events]} used instead of the API")
     parser.add_argument("--min-events", type=int, default=1, help="fail (keep old data) below this many events")
-    parser.add_argument("--sources", default="ticketmaster,biletinial,londontheatre,todaytix,songkick",
-                        help="comma list: ticketmaster (needs the key), biletinial (Turkey), londontheatre (London), todaytix (US/Sydney stage), songkick (concerts)")
+    parser.add_argument("--sources", default="ticketmaster,biletinial,londontheatre,todaytix,songkick,germany",
+                        help="comma list: ticketmaster (needs the key), biletinial (Turkey), londontheatre (London), todaytix (US/Sydney stage), songkick (concerts), germany (Berlin/Munich/Hamburg stages)")
     parser.add_argument("--extra-fixture", help="JSON file {city_id: [normalized events]} used instead of Biletinial")
     args = parser.parse_args(argv)
 
@@ -413,7 +413,7 @@ def main(argv=None) -> int:
         extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
     if not args.fixture and not args.extra_fixture:
         import importlib
-        for name in ("londontheatre", "todaytix", "songkick"):
+        for name in ("londontheatre", "todaytix", "songkick", "germany"):
             if name not in sources:
                 continue
             try:
