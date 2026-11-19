@@ -362,7 +362,8 @@ def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at
         safe = re.sub(r"[^A-Za-z0-9._-]", "_", artist_id)
         _write(out / "v1" / "artists" / f"{safe}.json", {"events": sorted(tours[artist_id], key=_sort_key), "has_more": False})
 
-    sources = ([SOURCE] if raw_by_city else []) + (["Biletinial"] if extra else [])
+    providers = {e["source_attribution"]["primary_source"] for events in (extra or {}).values() for e in events}
+    sources = ([SOURCE] if raw_by_city else []) + sorted(providers)
     meta = {"generated_at": synced_at, "source": ", ".join(sources) or SOURCE,
             "cities": {cid: len(ev) for cid, ev in sorted(by_city.items())},
             "events_total": sum(len(ev) for ev in by_city.values()), "artists": len(ranked)}
@@ -377,8 +378,8 @@ def main(argv=None) -> int:
     parser.add_argument("--config", default=str(Path(__file__).with_name("cities.json")))
     parser.add_argument("--fixture", help="JSON file {city_id: [raw Ticketmaster events]} used instead of the API")
     parser.add_argument("--min-events", type=int, default=1, help="fail (keep old data) below this many events")
-    parser.add_argument("--sources", default="ticketmaster,biletinial",
-                        help="comma list: ticketmaster (needs the key) and/or biletinial (Turkish cities)")
+    parser.add_argument("--sources", default="ticketmaster,biletinial,londontheatre",
+                        help="comma list: ticketmaster (needs the key), biletinial (Turkish cities), londontheatre (London)")
     parser.add_argument("--extra-fixture", help="JSON file {city_id: [normalized events]} used instead of Biletinial")
     args = parser.parse_args(argv)
 
@@ -406,6 +407,10 @@ def main(argv=None) -> int:
     elif "biletinial" in sources and not args.fixture:
         import biletinial
         extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
+    if "londontheatre" in sources and not args.fixture and not args.extra_fixture:
+        import londontheatre
+        for city_id, events in londontheatre.collect(config["cities"], city_dto, synced_at, now.date()).items():
+            extra.setdefault(city_id, []).extend(events)
     if not raw_by_city and not extra and not args.fixture:
         print("No source produced data.", file=sys.stderr)
         return 2

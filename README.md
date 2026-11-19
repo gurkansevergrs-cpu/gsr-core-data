@@ -46,3 +46,7 @@ Turkey only, without a Ticketmaster key (takes about 30-40 minutes):
 
 Edit `cities.json` to add or remove cities. Cities without events are left out
 of `v1/locations.json` automatically.
+
+## London
+
+`londontheatre.py` reads the public What's On pages of londontheatre.co.uk (schema.org TheaterEvent data, robots.txt respected) so London works without a Ticketmaster key. Long-running shows are published as a date range over the next 90 days.

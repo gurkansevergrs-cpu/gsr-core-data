@@ -26,8 +26,10 @@ BASE = "https://biletinial.com"
 SOURCE = "Biletinial"
 USER_AGENT = "gsr-core-data/1.0 (event listing; links back to the ticket page)"
 # Biletinial list page -> app category and default subcategory.
-LISTS = {"tiyatro": ("THEATRE_MUSICAL", "THEATRE"), "opera-bale": ("THEATRE_MUSICAL", None), "muzik": ("CONCERT", None)}
+LISTS = {"tiyatro": ("THEATRE_MUSICAL", "THEATRE"), "opera-bale": ("THEATRE_MUSICAL", None), "muzik": ("CONCERT", None),
+         "etkinlik": ("EXHIBITION", "ART")}  # "etkinlik" is mixed: only exhibitions are kept
 SKIP_WORDS = ("stand up", "stand-up", "standup", "talk show", "sinema")
+EXHIBIT_WORDS = ("sergi", "muze", "exhibition", "exhibit", "galeri", "gallery", "lumina", "immersive", "bienal", "biennial")
 DELAY = 1.0
 HORIZON_DAYS = 90
 
@@ -49,6 +51,20 @@ def classify(list_name: str, title: str) -> tuple[str, str | None] | None:
     if any(word in low for word in SKIP_WORDS):
         return None
     category, sub = LISTS[list_name]
+    if list_name == "etkinlik":
+        if not any(w in low for w in EXHIBIT_WORDS):
+            return None
+        if "fotograf" in low or "photo" in low:
+            return category, "PHOTOGRAPHY"
+        if "heykel" in low or "sculpt" in low:
+            return category, "SCULPTURE"
+        if any(w in low for w in ("dijital", "digital", "teknoloji", "immersive", "lumina", "sanal gerceklik", " vr")):
+            return category, "TECHNOLOGY"
+        if any(w in low for w in ("tarih", "history", "antik", "arkeoloji", "osmanli")):
+            return category, "HISTORY"
+        if "tasarim" in low or "design" in low:
+            return category, "DESIGN"
+        return category, sub
     if list_name == "tiyatro":
         return ("THEATRE_MUSICAL", "MUSICAL") if "muzikal" in low or "musical" in low else (category, sub)
     if list_name == "opera-bale":
@@ -59,11 +75,14 @@ def classify(list_name: str, title: str) -> tuple[str, str | None] | None:
         return "CONCERT", "FESTIVAL"
     if any(w in low for w in ("caz", "jazz", "blues")):
         return "CONCERT", "JAZZ"
-    if any(w in low for w in ("senfoni", "orkestra", "filarmoni", "resital", "klasik", "oda muzigi", "piyano", "keman")):
+    if any(w in low for w in ("senfoni", "orkestra", "filarmoni", "resital", "klasik", "oda muzigi", "piyano", "keman",
+                              "cello", "viyolonsel", "koro", "chopin", "mozart", "beethoven", "bach", "vivaldi", "candlelight")):
         return "CONCERT", "CLASSICAL"
-    if any(w in low for w in ("rock", "metal", "punk")):
+    if any(w in low for w in ("rock", "metal", "punk", "grunge")):
         return "CONCERT", "ROCK"
-    if any(w in low for w in ("dj ", "techno", "elektronik", "electronic")):
+    if any(w in low for w in ("pop", "tribute", "hits", "90'lar", "80'ler", "2000'ler", "90lar", "80ler")):
+        return "CONCERT", "POP"
+    if any(w in low for w in ("dj ", "dj:", "techno", "house", "elektronik", "electronic", "party", "parti")):
         return "CONCERT", "ELECTRONIC"
     return "CONCERT", None
 
