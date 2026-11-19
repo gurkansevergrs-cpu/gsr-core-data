@@ -83,9 +83,14 @@ SKIP = re.compile(r"\b(führung|führungen|fuehrung|workshop|werkstatt|gespräch
 EVENT_TYPES = ("Event", "TheaterEvent", "MusicEvent", "DanceEvent", "ComedyEvent")
 
 
+BALLET_TITLES = ("nutcracker", "nussknacker", "casse-noisette", "swan lake", "schwanensee", "lac des cygnes", "giselle",
+                 "sleeping beauty", "dornröschen", "don quixote", "coppélia", "coppelia", "bayadère", "bayadere",
+                 "spartacus", "romeo and juliet", "roméo et juliette", "fountain of bakhchisarai", "cinderella", "aschenputtel")
+
+
 def subcategory(title: str, default: str) -> str:
     low = title.lower()
-    if "ballett" in low or "ballet" in low or "tanz" in low:
+    if "ballett" in low or "ballet" in low or "tanz" in low or any(t in low for t in BALLET_TITLES):
         return "BALLET"
     if "musical" in low:
         return "MUSICAL"
@@ -171,7 +176,7 @@ def jsonld_events(page: str, city: dict, city_dto, synced_at: str, today: dt.dat
     for item in items:
         title = clean(item.get("name"))
         offers = item.get("offers")
-        link = _https(item.get("url")) or (_https(offers.get("url")) if isinstance(offers, dict) else None)
+        link = _https(item.get("url")) or (_https(offers.get("url")) if isinstance(offers, dict) else None) or page_url
         if not title or not link or urlsplit(link).netloc != host or skipped(title):
             continue
         if "Cancelled" in str(item.get("eventStatus")) or "Postponed" in str(item.get("eventStatus")):
@@ -294,7 +299,7 @@ def production_link(ics_url: str, vevent: dict, page_url: str) -> str:
         if url and urlsplit(url).netloc == host:
             return url
     path = urlsplit(ics_url).path
-    if path.endswith(".ics") and "/programm/" in path:
+    if path.endswith(".ics") and ("/programm/" in path or (path.startswith("/de/spielplan/") and path.count("/") >= 5)):
         return urljoin(ics_url, path.rsplit("/", 1)[0])
     return page_url
 
@@ -305,6 +310,8 @@ def og_image(page: str | None, base: str = "") -> str | None:
     match = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page) or \
         re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', page)
     url = _https(urljoin(base, html.unescape(match.group(1)))) if match else None
+    if url and re.search(r"/(default|placeholder|fallback|logo)[^/]*\.(jpe?g|png|webp)", url, re.I):
+        return None
     return url.replace("?w=2000", "?w=800") if url else None   # Kammerspiele serves press photos at 2000 px
 
 
@@ -334,9 +341,25 @@ def og_title(page: str | None) -> str | None:
     match = re.search(r'<meta[^>]+property="og:title"[^>]+content="([^"]+)"', page) or \
         re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:title"', page)
     if not match:
+        match = re.search(r"<title[^>]*>(.*?)</title>", page, re.S)
+    if not match:
         return None
     title = clean(match.group(1))
+    title = re.sub(r"\s+-\s+\d{4}\.\d{2}\.\d{2}.*$", "", title)   # "Requiem - 2026.11.02 19:00- Opera"
     return re.split(r"\s+[|–—-]\s+(?=[^|–—-]*$)", title)[0].strip() or None   # drop " | Site name"
+
+
+def page_kind(page: str | None) -> str | None:
+    """OPERA / BALLET when the production page's description or keywords say so."""
+    if not page:
+        return None
+    meta = " ".join(re.findall(r'<meta[^>]+(?:name|property)="(?:og:description|description|keywords)"[^>]+content="([^"]*)"', page))
+    text = (meta + " " + " ".join(re.findall(r'class="[^"]*(?:genre|category|type)[^"]*"[^>]*>([^<]{2,40})<', page))).lower()
+    if re.search(r"\b(ballet|balet|balett|balletto|tanec|dance)\b", text):
+        return "BALLET"
+    if re.search(r"\b(opera|opera|opéra|oper|opery|operett|operetta)\b", text):
+        return "OPERA"
+    return None
 
 
 def url_date_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, provider: str, default_sub: str,
@@ -364,12 +387,13 @@ def url_date_events(page: str, city: dict, city_dto, synced_at: str, today: dt.d
         slug = parts["slug"]
         if slug not in productions:
             detail = fetch(url)
-            productions[slug] = (og_title(detail), og_image(detail, url))
-        title, image = productions[slug]
+            productions[slug] = (og_title(detail), og_image(detail, url), page_kind(detail))
+        title, image, kind = productions[slug]
         if not title or skipped(title):
             continue
         start = _aware(naive.isoformat())
-        event = _event(city, city_dto, synced_at, provider, title, start, url, subcategory(title, default_sub), provider, image)
+        sub = subcategory(title, kind or default_sub)
+        event = _event(city, city_dto, synced_at, provider, title, start, url, sub, provider, image)
         if not parts.get("H"):
             event["schedule"].pop("local_time", None)   # the link gives the day only
         out.append(event)
