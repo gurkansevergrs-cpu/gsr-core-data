@@ -2,17 +2,28 @@
 
 Live event data for the **GSR CORE — Core of Arts** Android app.
 
-Twice a day a GitHub Actions job (Linux runner, free on a public repository)
-downloads upcoming concerts, stage shows and exhibitions from the free
-Ticketmaster Discovery API, converts them to the app's format and publishes
-static JSON files to the `data` branch. The app reads them from:
+Once a day a GitHub Actions job (Linux runner, free on a public repository)
+collects upcoming concerts, stage shows and exhibitions, converts them to the
+app's format and publishes static JSON files to the `data` branch:
+
+- **Turkey (all 81 provinces):** public Biletinial city pages
+  (`/tr-tr/tiyatro|opera-bale|muzik/<city>`). Each play page carries schema.org
+  Event data with the play name, poster, date, hall and ticket link. Biletinial
+  also sells the State Theatres' tickets. robots.txt is honoured and requests
+  are spaced one second apart (`biletinial.py`).
+- **Other countries:** the free Ticketmaster Discovery API (Ticketmaster does
+  not sell in Turkey).
+
+The app reads the files from:
 
     https://raw.githubusercontent.com/<owner>/gsr-core-data/data/
 
-GSR CORE does not sell tickets. Every event links to its official Ticketmaster
-page.
+GSR CORE does not sell tickets. Every event links to its ticket page on the
+seller's own website (Biletinial or Ticketmaster).
 
 ## One-time setup (owner)
+
+Turkey works without a key. For other countries:
 
 1. Get a free API key at https://developer.ticketmaster.com (My Apps → Consumer Key).
 2. Create a **public** GitHub repository named `gsr-core-data` and push this folder.
@@ -25,7 +36,11 @@ an API outage never wipes the existing data.
 
 ## Local test (no key needed)
 
-    python -m unittest -v test_ingest
+    python -m unittest -v test_ingest test_biletinial
+
+Turkey only, without a Ticketmaster key (takes about 30-40 minutes):
+
+    python ingest.py --out site --sources biletinial
 
 ## Cities
 

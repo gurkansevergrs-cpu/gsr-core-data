@@ -1,5 +1,5 @@
 {
- "_note": "Cities GSR CORE asks Ticketmaster about. Cities that return no events are left out of locations.json automatically, so the app never shows an empty city.",
+ "_note": "Cities GSR CORE collects events for. Turkish cities (key 'biletinial') come from Biletinial city pages; the others come from Ticketmaster. Cities that return no events are left out of locations.json.",
  "countries": {
   "GB": {
    "currency": "GBP",
@@ -670,7 +670,8 @@
     "it": "Istanbul",
     "zh": "伊斯坦布尔",
     "ar": "إسطنبول"
-   }
+   },
+   "biletinial": "istanbul"
   },
   {
    "id": "tr-ankara",
@@ -688,7 +689,8 @@
     "it": "Ankara",
     "zh": "安卡拉",
     "ar": "أنقرة"
-   }
+   },
+   "biletinial": "ankara"
   },
   {
    "id": "tr-izmir",
@@ -706,7 +708,8 @@
     "it": "Smirne",
     "zh": "伊兹密尔",
     "ar": "إزمير"
-   }
+   },
+   "biletinial": "izmir"
   },
   {
    "id": "tr-antalya",
@@ -724,7 +727,8 @@
     "it": "Adalia",
     "zh": "安塔利亚",
     "ar": "أنطاليا"
-   }
+   },
+   "biletinial": "antalya"
   },
   {
    "id": "tr-bursa",
@@ -742,7 +746,8 @@
     "it": "Bursa",
     "zh": "布尔萨",
     "ar": "بورصة"
-   }
+   },
+   "biletinial": "bursa"
   },
   {
    "id": "tr-eskisehir",
@@ -760,7 +765,8 @@
     "it": "Eskişehir",
     "zh": "埃斯基谢希尔",
     "ar": "إسكي شهير"
-   }
+   },
+   "biletinial": "eskisehir"
   },
   {
    "id": "it-rome",
@@ -869,6 +875,1431 @@
     "zh": "迪拜",
     "ar": "دبي"
    }
+  },
+  {
+   "id": "tr-adana",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.0,
+   "lng": 35.3213,
+   "radius_km": 25,
+   "name": {
+    "en": "Adana",
+    "tr": "Adana",
+    "de": "Adana",
+    "fr": "Adana",
+    "es": "Adana",
+    "it": "Adana",
+    "zh": "Adana",
+    "ar": "Adana"
+   },
+   "biletinial": "adana"
+  },
+  {
+   "id": "tr-adiyaman",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.7648,
+   "lng": 38.2786,
+   "radius_km": 25,
+   "name": {
+    "en": "Adıyaman",
+    "tr": "Adıyaman",
+    "de": "Adıyaman",
+    "fr": "Adıyaman",
+    "es": "Adıyaman",
+    "it": "Adıyaman",
+    "zh": "Adıyaman",
+    "ar": "Adıyaman"
+   },
+   "biletinial": "adiyaman"
+  },
+  {
+   "id": "tr-afyonkarahisar",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.7507,
+   "lng": 30.5567,
+   "radius_km": 25,
+   "name": {
+    "en": "Afyonkarahisar",
+    "tr": "Afyonkarahisar",
+    "de": "Afyonkarahisar",
+    "fr": "Afyonkarahisar",
+    "es": "Afyonkarahisar",
+    "it": "Afyonkarahisar",
+    "zh": "Afyonkarahisar",
+    "ar": "Afyonkarahisar"
+   },
+   "biletinial": "afyonkarahisar"
+  },
+  {
+   "id": "tr-agri",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.7191,
+   "lng": 43.0503,
+   "radius_km": 25,
+   "name": {
+    "en": "Ağrı",
+    "tr": "Ağrı",
+    "de": "Ağrı",
+    "fr": "Ağrı",
+    "es": "Ağrı",
+    "it": "Ağrı",
+    "zh": "Ağrı",
+    "ar": "Ağrı"
+   },
+   "biletinial": "agri"
+  },
+  {
+   "id": "tr-amasya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.6499,
+   "lng": 35.8353,
+   "radius_km": 25,
+   "name": {
+    "en": "Amasya",
+    "tr": "Amasya",
+    "de": "Amasya",
+    "fr": "Amasya",
+    "es": "Amasya",
+    "it": "Amasya",
+    "zh": "Amasya",
+    "ar": "Amasya"
+   },
+   "biletinial": "amasya"
+  },
+  {
+   "id": "tr-artvin",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.1828,
+   "lng": 41.8183,
+   "radius_km": 25,
+   "name": {
+    "en": "Artvin",
+    "tr": "Artvin",
+    "de": "Artvin",
+    "fr": "Artvin",
+    "es": "Artvin",
+    "it": "Artvin",
+    "zh": "Artvin",
+    "ar": "Artvin"
+   },
+   "biletinial": "artvin"
+  },
+  {
+   "id": "tr-aydin",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.856,
+   "lng": 27.8416,
+   "radius_km": 25,
+   "name": {
+    "en": "Aydın",
+    "tr": "Aydın",
+    "de": "Aydın",
+    "fr": "Aydın",
+    "es": "Aydın",
+    "it": "Aydın",
+    "zh": "Aydın",
+    "ar": "Aydın"
+   },
+   "biletinial": "aydin"
+  },
+  {
+   "id": "tr-balikesir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.6484,
+   "lng": 27.8826,
+   "radius_km": 25,
+   "name": {
+    "en": "Balıkesir",
+    "tr": "Balıkesir",
+    "de": "Balıkesir",
+    "fr": "Balıkesir",
+    "es": "Balıkesir",
+    "it": "Balıkesir",
+    "zh": "Balıkesir",
+    "ar": "Balıkesir"
+   },
+   "biletinial": "balikesir"
+  },
+  {
+   "id": "tr-bilecik",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.1451,
+   "lng": 29.9799,
+   "radius_km": 25,
+   "name": {
+    "en": "Bilecik",
+    "tr": "Bilecik",
+    "de": "Bilecik",
+    "fr": "Bilecik",
+    "es": "Bilecik",
+    "it": "Bilecik",
+    "zh": "Bilecik",
+    "ar": "Bilecik"
+   },
+   "biletinial": "bilecik"
+  },
+  {
+   "id": "tr-bingol",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.8847,
+   "lng": 40.4983,
+   "radius_km": 25,
+   "name": {
+    "en": "Bingöl",
+    "tr": "Bingöl",
+    "de": "Bingöl",
+    "fr": "Bingöl",
+    "es": "Bingöl",
+    "it": "Bingöl",
+    "zh": "Bingöl",
+    "ar": "Bingöl"
+   },
+   "biletinial": "bingol"
+  },
+  {
+   "id": "tr-bitlis",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.4006,
+   "lng": 42.1095,
+   "radius_km": 25,
+   "name": {
+    "en": "Bitlis",
+    "tr": "Bitlis",
+    "de": "Bitlis",
+    "fr": "Bitlis",
+    "es": "Bitlis",
+    "it": "Bitlis",
+    "zh": "Bitlis",
+    "ar": "Bitlis"
+   },
+   "biletinial": "bitlis"
+  },
+  {
+   "id": "tr-bolu",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.735,
+   "lng": 31.6061,
+   "radius_km": 25,
+   "name": {
+    "en": "Bolu",
+    "tr": "Bolu",
+    "de": "Bolu",
+    "fr": "Bolu",
+    "es": "Bolu",
+    "it": "Bolu",
+    "zh": "Bolu",
+    "ar": "Bolu"
+   },
+   "biletinial": "bolu"
+  },
+  {
+   "id": "tr-burdur",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.7203,
+   "lng": 30.2908,
+   "radius_km": 25,
+   "name": {
+    "en": "Burdur",
+    "tr": "Burdur",
+    "de": "Burdur",
+    "fr": "Burdur",
+    "es": "Burdur",
+    "it": "Burdur",
+    "zh": "Burdur",
+    "ar": "Burdur"
+   },
+   "biletinial": "burdur"
+  },
+  {
+   "id": "tr-canakkale",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.1553,
+   "lng": 26.4142,
+   "radius_km": 25,
+   "name": {
+    "en": "Çanakkale",
+    "tr": "Çanakkale",
+    "de": "Çanakkale",
+    "fr": "Çanakkale",
+    "es": "Çanakkale",
+    "it": "Çanakkale",
+    "zh": "Çanakkale",
+    "ar": "Çanakkale"
+   },
+   "biletinial": "canakkale"
+  },
+  {
+   "id": "tr-cankiri",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.6013,
+   "lng": 33.6134,
+   "radius_km": 25,
+   "name": {
+    "en": "Çankırı",
+    "tr": "Çankırı",
+    "de": "Çankırı",
+    "fr": "Çankırı",
+    "es": "Çankırı",
+    "it": "Çankırı",
+    "zh": "Çankırı",
+    "ar": "Çankırı"
+   },
+   "biletinial": "cankiri"
+  },
+  {
+   "id": "tr-corum",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.5506,
+   "lng": 34.9556,
+   "radius_km": 25,
+   "name": {
+    "en": "Çorum",
+    "tr": "Çorum",
+    "de": "Çorum",
+    "fr": "Çorum",
+    "es": "Çorum",
+    "it": "Çorum",
+    "zh": "Çorum",
+    "ar": "Çorum"
+   },
+   "biletinial": "corum"
+  },
+  {
+   "id": "tr-denizli",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.7765,
+   "lng": 29.0864,
+   "radius_km": 25,
+   "name": {
+    "en": "Denizli",
+    "tr": "Denizli",
+    "de": "Denizli",
+    "fr": "Denizli",
+    "es": "Denizli",
+    "it": "Denizli",
+    "zh": "Denizli",
+    "ar": "Denizli"
+   },
+   "biletinial": "denizli"
+  },
+  {
+   "id": "tr-diyarbakir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.9144,
+   "lng": 40.2306,
+   "radius_km": 25,
+   "name": {
+    "en": "Diyarbakır",
+    "tr": "Diyarbakır",
+    "de": "Diyarbakır",
+    "fr": "Diyarbakır",
+    "es": "Diyarbakır",
+    "it": "Diyarbakır",
+    "zh": "Diyarbakır",
+    "ar": "Diyarbakır"
+   },
+   "biletinial": "diyarbakir"
+  },
+  {
+   "id": "tr-edirne",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.6818,
+   "lng": 26.5623,
+   "radius_km": 25,
+   "name": {
+    "en": "Edirne",
+    "tr": "Edirne",
+    "de": "Edirne",
+    "fr": "Edirne",
+    "es": "Edirne",
+    "it": "Edirne",
+    "zh": "Edirne",
+    "ar": "Edirne"
+   },
+   "biletinial": "edirne"
+  },
+  {
+   "id": "tr-elazig",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.681,
+   "lng": 39.2264,
+   "radius_km": 25,
+   "name": {
+    "en": "Elazığ",
+    "tr": "Elazığ",
+    "de": "Elazığ",
+    "fr": "Elazığ",
+    "es": "Elazığ",
+    "it": "Elazığ",
+    "zh": "Elazığ",
+    "ar": "Elazığ"
+   },
+   "biletinial": "elazig"
+  },
+  {
+   "id": "tr-erzincan",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.75,
+   "lng": 39.5,
+   "radius_km": 25,
+   "name": {
+    "en": "Erzincan",
+    "tr": "Erzincan",
+    "de": "Erzincan",
+    "fr": "Erzincan",
+    "es": "Erzincan",
+    "it": "Erzincan",
+    "zh": "Erzincan",
+    "ar": "Erzincan"
+   },
+   "biletinial": "erzincan"
+  },
+  {
+   "id": "tr-erzurum",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.9,
+   "lng": 41.27,
+   "radius_km": 25,
+   "name": {
+    "en": "Erzurum",
+    "tr": "Erzurum",
+    "de": "Erzurum",
+    "fr": "Erzurum",
+    "es": "Erzurum",
+    "it": "Erzurum",
+    "zh": "Erzurum",
+    "ar": "Erzurum"
+   },
+   "biletinial": "erzurum"
+  },
+  {
+   "id": "tr-gaziantep",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.0662,
+   "lng": 37.3833,
+   "radius_km": 25,
+   "name": {
+    "en": "Gaziantep",
+    "tr": "Gaziantep",
+    "de": "Gaziantep",
+    "fr": "Gaziantep",
+    "es": "Gaziantep",
+    "it": "Gaziantep",
+    "zh": "Gaziantep",
+    "ar": "Gaziantep"
+   },
+   "biletinial": "gaziantep"
+  },
+  {
+   "id": "tr-giresun",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.9128,
+   "lng": 38.3895,
+   "radius_km": 25,
+   "name": {
+    "en": "Giresun",
+    "tr": "Giresun",
+    "de": "Giresun",
+    "fr": "Giresun",
+    "es": "Giresun",
+    "it": "Giresun",
+    "zh": "Giresun",
+    "ar": "Giresun"
+   },
+   "biletinial": "giresun"
+  },
+  {
+   "id": "tr-gumushane",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.4386,
+   "lng": 39.5086,
+   "radius_km": 25,
+   "name": {
+    "en": "Gümüşhane",
+    "tr": "Gümüşhane",
+    "de": "Gümüşhane",
+    "fr": "Gümüşhane",
+    "es": "Gümüşhane",
+    "it": "Gümüşhane",
+    "zh": "Gümüşhane",
+    "ar": "Gümüşhane"
+   },
+   "biletinial": "gumushane"
+  },
+  {
+   "id": "tr-hakkari",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.5833,
+   "lng": 43.7333,
+   "radius_km": 25,
+   "name": {
+    "en": "Hakkari",
+    "tr": "Hakkari",
+    "de": "Hakkari",
+    "fr": "Hakkari",
+    "es": "Hakkari",
+    "it": "Hakkari",
+    "zh": "Hakkari",
+    "ar": "Hakkari"
+   },
+   "biletinial": "hakkari"
+  },
+  {
+   "id": "tr-hatay",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 36.2028,
+   "lng": 36.16,
+   "radius_km": 25,
+   "name": {
+    "en": "Hatay",
+    "tr": "Hatay",
+    "de": "Hatay",
+    "fr": "Hatay",
+    "es": "Hatay",
+    "it": "Hatay",
+    "zh": "Hatay",
+    "ar": "Hatay"
+   },
+   "biletinial": "hatay"
+  },
+  {
+   "id": "tr-isparta",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.7648,
+   "lng": 30.5566,
+   "radius_km": 25,
+   "name": {
+    "en": "Isparta",
+    "tr": "Isparta",
+    "de": "Isparta",
+    "fr": "Isparta",
+    "es": "Isparta",
+    "it": "Isparta",
+    "zh": "Isparta",
+    "ar": "Isparta"
+   },
+   "biletinial": "isparta"
+  },
+  {
+   "id": "tr-mersin",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 36.8,
+   "lng": 34.6333,
+   "radius_km": 25,
+   "name": {
+    "en": "Mersin",
+    "tr": "Mersin",
+    "de": "Mersin",
+    "fr": "Mersin",
+    "es": "Mersin",
+    "it": "Mersin",
+    "zh": "Mersin",
+    "ar": "Mersin"
+   },
+   "biletinial": "mersin"
+  },
+  {
+   "id": "tr-kars",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.6013,
+   "lng": 43.0975,
+   "radius_km": 25,
+   "name": {
+    "en": "Kars",
+    "tr": "Kars",
+    "de": "Kars",
+    "fr": "Kars",
+    "es": "Kars",
+    "it": "Kars",
+    "zh": "Kars",
+    "ar": "Kars"
+   },
+   "biletinial": "kars"
+  },
+  {
+   "id": "tr-kastamonu",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.3887,
+   "lng": 33.7827,
+   "radius_km": 25,
+   "name": {
+    "en": "Kastamonu",
+    "tr": "Kastamonu",
+    "de": "Kastamonu",
+    "fr": "Kastamonu",
+    "es": "Kastamonu",
+    "it": "Kastamonu",
+    "zh": "Kastamonu",
+    "ar": "Kastamonu"
+   },
+   "biletinial": "kastamonu"
+  },
+  {
+   "id": "tr-kayseri",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.7312,
+   "lng": 35.4787,
+   "radius_km": 25,
+   "name": {
+    "en": "Kayseri",
+    "tr": "Kayseri",
+    "de": "Kayseri",
+    "fr": "Kayseri",
+    "es": "Kayseri",
+    "it": "Kayseri",
+    "zh": "Kayseri",
+    "ar": "Kayseri"
+   },
+   "biletinial": "kayseri"
+  },
+  {
+   "id": "tr-kirklareli",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.7333,
+   "lng": 27.2167,
+   "radius_km": 25,
+   "name": {
+    "en": "Kırklareli",
+    "tr": "Kırklareli",
+    "de": "Kırklareli",
+    "fr": "Kırklareli",
+    "es": "Kırklareli",
+    "it": "Kırklareli",
+    "zh": "Kırklareli",
+    "ar": "Kırklareli"
+   },
+   "biletinial": "kirklareli"
+  },
+  {
+   "id": "tr-kirsehir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.1425,
+   "lng": 34.1709,
+   "radius_km": 25,
+   "name": {
+    "en": "Kırşehir",
+    "tr": "Kırşehir",
+    "de": "Kırşehir",
+    "fr": "Kırşehir",
+    "es": "Kırşehir",
+    "it": "Kırşehir",
+    "zh": "Kırşehir",
+    "ar": "Kırşehir"
+   },
+   "biletinial": "kirsehir"
+  },
+  {
+   "id": "tr-kocaeli",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.8533,
+   "lng": 29.8815,
+   "radius_km": 25,
+   "name": {
+    "en": "Kocaeli",
+    "tr": "Kocaeli",
+    "de": "Kocaeli",
+    "fr": "Kocaeli",
+    "es": "Kocaeli",
+    "it": "Kocaeli",
+    "zh": "Kocaeli",
+    "ar": "Kocaeli"
+   },
+   "biletinial": "kocaeli"
+  },
+  {
+   "id": "tr-konya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.8667,
+   "lng": 32.4833,
+   "radius_km": 25,
+   "name": {
+    "en": "Konya",
+    "tr": "Konya",
+    "de": "Konya",
+    "fr": "Konya",
+    "es": "Konya",
+    "it": "Konya",
+    "zh": "Konya",
+    "ar": "Konya"
+   },
+   "biletinial": "konya"
+  },
+  {
+   "id": "tr-kutahya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.4167,
+   "lng": 29.9833,
+   "radius_km": 25,
+   "name": {
+    "en": "Kütahya",
+    "tr": "Kütahya",
+    "de": "Kütahya",
+    "fr": "Kütahya",
+    "es": "Kütahya",
+    "it": "Kütahya",
+    "zh": "Kütahya",
+    "ar": "Kütahya"
+   },
+   "biletinial": "kutahya"
+  },
+  {
+   "id": "tr-malatya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.3552,
+   "lng": 38.3095,
+   "radius_km": 25,
+   "name": {
+    "en": "Malatya",
+    "tr": "Malatya",
+    "de": "Malatya",
+    "fr": "Malatya",
+    "es": "Malatya",
+    "it": "Malatya",
+    "zh": "Malatya",
+    "ar": "Malatya"
+   },
+   "biletinial": "malatya"
+  },
+  {
+   "id": "tr-manisa",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.6191,
+   "lng": 27.4289,
+   "radius_km": 25,
+   "name": {
+    "en": "Manisa",
+    "tr": "Manisa",
+    "de": "Manisa",
+    "fr": "Manisa",
+    "es": "Manisa",
+    "it": "Manisa",
+    "zh": "Manisa",
+    "ar": "Manisa"
+   },
+   "biletinial": "manisa"
+  },
+  {
+   "id": "tr-kahramanmaras",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.5858,
+   "lng": 36.9371,
+   "radius_km": 25,
+   "name": {
+    "en": "Kahramanmaraş",
+    "tr": "Kahramanmaraş",
+    "de": "Kahramanmaraş",
+    "fr": "Kahramanmaraş",
+    "es": "Kahramanmaraş",
+    "it": "Kahramanmaraş",
+    "zh": "Kahramanmaraş",
+    "ar": "Kahramanmaraş"
+   },
+   "biletinial": "kahramanmaras"
+  },
+  {
+   "id": "tr-mardin",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.3212,
+   "lng": 40.7245,
+   "radius_km": 25,
+   "name": {
+    "en": "Mardin",
+    "tr": "Mardin",
+    "de": "Mardin",
+    "fr": "Mardin",
+    "es": "Mardin",
+    "it": "Mardin",
+    "zh": "Mardin",
+    "ar": "Mardin"
+   },
+   "biletinial": "mardin"
+  },
+  {
+   "id": "tr-mugla",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.2153,
+   "lng": 28.3636,
+   "radius_km": 25,
+   "name": {
+    "en": "Muğla",
+    "tr": "Muğla",
+    "de": "Muğla",
+    "fr": "Muğla",
+    "es": "Muğla",
+    "it": "Muğla",
+    "zh": "Muğla",
+    "ar": "Muğla"
+   },
+   "biletinial": "mugla"
+  },
+  {
+   "id": "tr-mus",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.9462,
+   "lng": 41.7539,
+   "radius_km": 25,
+   "name": {
+    "en": "Muş",
+    "tr": "Muş",
+    "de": "Muş",
+    "fr": "Muş",
+    "es": "Muş",
+    "it": "Muş",
+    "zh": "Muş",
+    "ar": "Muş"
+   },
+   "biletinial": "mus"
+  },
+  {
+   "id": "tr-nevsehir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.6939,
+   "lng": 34.6857,
+   "radius_km": 25,
+   "name": {
+    "en": "Nevşehir",
+    "tr": "Nevşehir",
+    "de": "Nevşehir",
+    "fr": "Nevşehir",
+    "es": "Nevşehir",
+    "it": "Nevşehir",
+    "zh": "Nevşehir",
+    "ar": "Nevşehir"
+   },
+   "biletinial": "nevsehir"
+  },
+  {
+   "id": "tr-nigde",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.9667,
+   "lng": 34.6833,
+   "radius_km": 25,
+   "name": {
+    "en": "Niğde",
+    "tr": "Niğde",
+    "de": "Niğde",
+    "fr": "Niğde",
+    "es": "Niğde",
+    "it": "Niğde",
+    "zh": "Niğde",
+    "ar": "Niğde"
+   },
+   "biletinial": "nigde"
+  },
+  {
+   "id": "tr-ordu",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.9839,
+   "lng": 37.8764,
+   "radius_km": 25,
+   "name": {
+    "en": "Ordu",
+    "tr": "Ordu",
+    "de": "Ordu",
+    "fr": "Ordu",
+    "es": "Ordu",
+    "it": "Ordu",
+    "zh": "Ordu",
+    "ar": "Ordu"
+   },
+   "biletinial": "ordu"
+  },
+  {
+   "id": "tr-rize",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.0201,
+   "lng": 40.5234,
+   "radius_km": 25,
+   "name": {
+    "en": "Rize",
+    "tr": "Rize",
+    "de": "Rize",
+    "fr": "Rize",
+    "es": "Rize",
+    "it": "Rize",
+    "zh": "Rize",
+    "ar": "Rize"
+   },
+   "biletinial": "rize"
+  },
+  {
+   "id": "tr-sakarya",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.694,
+   "lng": 30.4358,
+   "radius_km": 25,
+   "name": {
+    "en": "Sakarya",
+    "tr": "Sakarya",
+    "de": "Sakarya",
+    "fr": "Sakarya",
+    "es": "Sakarya",
+    "it": "Sakarya",
+    "zh": "Sakarya",
+    "ar": "Sakarya"
+   },
+   "biletinial": "sakarya"
+  },
+  {
+   "id": "tr-samsun",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.2928,
+   "lng": 36.3313,
+   "radius_km": 25,
+   "name": {
+    "en": "Samsun",
+    "tr": "Samsun",
+    "de": "Samsun",
+    "fr": "Samsun",
+    "es": "Samsun",
+    "it": "Samsun",
+    "zh": "Samsun",
+    "ar": "Samsun"
+   },
+   "biletinial": "samsun"
+  },
+  {
+   "id": "tr-siirt",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.9333,
+   "lng": 41.95,
+   "radius_km": 25,
+   "name": {
+    "en": "Siirt",
+    "tr": "Siirt",
+    "de": "Siirt",
+    "fr": "Siirt",
+    "es": "Siirt",
+    "it": "Siirt",
+    "zh": "Siirt",
+    "ar": "Siirt"
+   },
+   "biletinial": "siirt"
+  },
+  {
+   "id": "tr-sinop",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 42.0231,
+   "lng": 35.1531,
+   "radius_km": 25,
+   "name": {
+    "en": "Sinop",
+    "tr": "Sinop",
+    "de": "Sinop",
+    "fr": "Sinop",
+    "es": "Sinop",
+    "it": "Sinop",
+    "zh": "Sinop",
+    "ar": "Sinop"
+   },
+   "biletinial": "sinop"
+  },
+  {
+   "id": "tr-sivas",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.7477,
+   "lng": 37.0179,
+   "radius_km": 25,
+   "name": {
+    "en": "Sivas",
+    "tr": "Sivas",
+    "de": "Sivas",
+    "fr": "Sivas",
+    "es": "Sivas",
+    "it": "Sivas",
+    "zh": "Sivas",
+    "ar": "Sivas"
+   },
+   "biletinial": "sivas"
+  },
+  {
+   "id": "tr-tekirdag",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.9833,
+   "lng": 27.5167,
+   "radius_km": 25,
+   "name": {
+    "en": "Tekirdağ",
+    "tr": "Tekirdağ",
+    "de": "Tekirdağ",
+    "fr": "Tekirdağ",
+    "es": "Tekirdağ",
+    "it": "Tekirdağ",
+    "zh": "Tekirdağ",
+    "ar": "Tekirdağ"
+   },
+   "biletinial": "tekirdag"
+  },
+  {
+   "id": "tr-tokat",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.3167,
+   "lng": 36.55,
+   "radius_km": 25,
+   "name": {
+    "en": "Tokat",
+    "tr": "Tokat",
+    "de": "Tokat",
+    "fr": "Tokat",
+    "es": "Tokat",
+    "it": "Tokat",
+    "zh": "Tokat",
+    "ar": "Tokat"
+   },
+   "biletinial": "tokat"
+  },
+  {
+   "id": "tr-trabzon",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.0015,
+   "lng": 39.7178,
+   "radius_km": 25,
+   "name": {
+    "en": "Trabzon",
+    "tr": "Trabzon",
+    "de": "Trabzon",
+    "fr": "Trabzon",
+    "es": "Trabzon",
+    "it": "Trabzon",
+    "zh": "Trabzon",
+    "ar": "Trabzon"
+   },
+   "biletinial": "trabzon"
+  },
+  {
+   "id": "tr-tunceli",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.1079,
+   "lng": 39.5401,
+   "radius_km": 25,
+   "name": {
+    "en": "Tunceli",
+    "tr": "Tunceli",
+    "de": "Tunceli",
+    "fr": "Tunceli",
+    "es": "Tunceli",
+    "it": "Tunceli",
+    "zh": "Tunceli",
+    "ar": "Tunceli"
+   },
+   "biletinial": "tunceli"
+  },
+  {
+   "id": "tr-sanliurfa",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.1591,
+   "lng": 38.7969,
+   "radius_km": 25,
+   "name": {
+    "en": "Şanlıurfa",
+    "tr": "Şanlıurfa",
+    "de": "Şanlıurfa",
+    "fr": "Şanlıurfa",
+    "es": "Şanlıurfa",
+    "it": "Şanlıurfa",
+    "zh": "Şanlıurfa",
+    "ar": "Şanlıurfa"
+   },
+   "biletinial": "sanliurfa"
+  },
+  {
+   "id": "tr-usak",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.6823,
+   "lng": 29.4082,
+   "radius_km": 25,
+   "name": {
+    "en": "Uşak",
+    "tr": "Uşak",
+    "de": "Uşak",
+    "fr": "Uşak",
+    "es": "Uşak",
+    "it": "Uşak",
+    "zh": "Uşak",
+    "ar": "Uşak"
+   },
+   "biletinial": "usak"
+  },
+  {
+   "id": "tr-van",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.4891,
+   "lng": 43.4089,
+   "radius_km": 25,
+   "name": {
+    "en": "Van",
+    "tr": "Van",
+    "de": "Van",
+    "fr": "Van",
+    "es": "Van",
+    "it": "Van",
+    "zh": "Van",
+    "ar": "Van"
+   },
+   "biletinial": "van"
+  },
+  {
+   "id": "tr-yozgat",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.8181,
+   "lng": 34.8147,
+   "radius_km": 25,
+   "name": {
+    "en": "Yozgat",
+    "tr": "Yozgat",
+    "de": "Yozgat",
+    "fr": "Yozgat",
+    "es": "Yozgat",
+    "it": "Yozgat",
+    "zh": "Yozgat",
+    "ar": "Yozgat"
+   },
+   "biletinial": "yozgat"
+  },
+  {
+   "id": "tr-zonguldak",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.4564,
+   "lng": 31.7987,
+   "radius_km": 25,
+   "name": {
+    "en": "Zonguldak",
+    "tr": "Zonguldak",
+    "de": "Zonguldak",
+    "fr": "Zonguldak",
+    "es": "Zonguldak",
+    "it": "Zonguldak",
+    "zh": "Zonguldak",
+    "ar": "Zonguldak"
+   },
+   "biletinial": "zonguldak"
+  },
+  {
+   "id": "tr-aksaray",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 38.3687,
+   "lng": 34.037,
+   "radius_km": 25,
+   "name": {
+    "en": "Aksaray",
+    "tr": "Aksaray",
+    "de": "Aksaray",
+    "fr": "Aksaray",
+    "es": "Aksaray",
+    "it": "Aksaray",
+    "zh": "Aksaray",
+    "ar": "Aksaray"
+   },
+   "biletinial": "aksaray"
+  },
+  {
+   "id": "tr-bayburt",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.2552,
+   "lng": 40.2249,
+   "radius_km": 25,
+   "name": {
+    "en": "Bayburt",
+    "tr": "Bayburt",
+    "de": "Bayburt",
+    "fr": "Bayburt",
+    "es": "Bayburt",
+    "it": "Bayburt",
+    "zh": "Bayburt",
+    "ar": "Bayburt"
+   },
+   "biletinial": "bayburt"
+  },
+  {
+   "id": "tr-karaman",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.1759,
+   "lng": 33.2287,
+   "radius_km": 25,
+   "name": {
+    "en": "Karaman",
+    "tr": "Karaman",
+    "de": "Karaman",
+    "fr": "Karaman",
+    "es": "Karaman",
+    "it": "Karaman",
+    "zh": "Karaman",
+    "ar": "Karaman"
+   },
+   "biletinial": "karaman"
+  },
+  {
+   "id": "tr-kirikkale",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.8468,
+   "lng": 33.5153,
+   "radius_km": 25,
+   "name": {
+    "en": "Kırıkkale",
+    "tr": "Kırıkkale",
+    "de": "Kırıkkale",
+    "fr": "Kırıkkale",
+    "es": "Kırıkkale",
+    "it": "Kırıkkale",
+    "zh": "Kırıkkale",
+    "ar": "Kırıkkale"
+   },
+   "biletinial": "kirikkale"
+  },
+  {
+   "id": "tr-batman",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.8812,
+   "lng": 41.1351,
+   "radius_km": 25,
+   "name": {
+    "en": "Batman",
+    "tr": "Batman",
+    "de": "Batman",
+    "fr": "Batman",
+    "es": "Batman",
+    "it": "Batman",
+    "zh": "Batman",
+    "ar": "Batman"
+   },
+   "biletinial": "batman"
+  },
+  {
+   "id": "tr-sirnak",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.5164,
+   "lng": 42.4611,
+   "radius_km": 25,
+   "name": {
+    "en": "Şırnak",
+    "tr": "Şırnak",
+    "de": "Şırnak",
+    "fr": "Şırnak",
+    "es": "Şırnak",
+    "it": "Şırnak",
+    "zh": "Şırnak",
+    "ar": "Şırnak"
+   },
+   "biletinial": "sirnak"
+  },
+  {
+   "id": "tr-bartin",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.6344,
+   "lng": 32.3375,
+   "radius_km": 25,
+   "name": {
+    "en": "Bartın",
+    "tr": "Bartın",
+    "de": "Bartın",
+    "fr": "Bartın",
+    "es": "Bartın",
+    "it": "Bartın",
+    "zh": "Bartın",
+    "ar": "Bartın"
+   },
+   "biletinial": "bartin"
+  },
+  {
+   "id": "tr-ardahan",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.1105,
+   "lng": 42.7022,
+   "radius_km": 25,
+   "name": {
+    "en": "Ardahan",
+    "tr": "Ardahan",
+    "de": "Ardahan",
+    "fr": "Ardahan",
+    "es": "Ardahan",
+    "it": "Ardahan",
+    "zh": "Ardahan",
+    "ar": "Ardahan"
+   },
+   "biletinial": "ardahan"
+  },
+  {
+   "id": "tr-igdir",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 39.9237,
+   "lng": 44.045,
+   "radius_km": 25,
+   "name": {
+    "en": "Iğdır",
+    "tr": "Iğdır",
+    "de": "Iğdır",
+    "fr": "Iğdır",
+    "es": "Iğdır",
+    "it": "Iğdır",
+    "zh": "Iğdır",
+    "ar": "Iğdır"
+   },
+   "biletinial": "igdir"
+  },
+  {
+   "id": "tr-yalova",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.65,
+   "lng": 29.2667,
+   "radius_km": 25,
+   "name": {
+    "en": "Yalova",
+    "tr": "Yalova",
+    "de": "Yalova",
+    "fr": "Yalova",
+    "es": "Yalova",
+    "it": "Yalova",
+    "zh": "Yalova",
+    "ar": "Yalova"
+   },
+   "biletinial": "yalova"
+  },
+  {
+   "id": "tr-karabuk",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 41.2061,
+   "lng": 32.6204,
+   "radius_km": 25,
+   "name": {
+    "en": "Karabük",
+    "tr": "Karabük",
+    "de": "Karabük",
+    "fr": "Karabük",
+    "es": "Karabük",
+    "it": "Karabük",
+    "zh": "Karabük",
+    "ar": "Karabük"
+   },
+   "biletinial": "karabuk"
+  },
+  {
+   "id": "tr-kilis",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 36.7184,
+   "lng": 37.1212,
+   "radius_km": 25,
+   "name": {
+    "en": "Kilis",
+    "tr": "Kilis",
+    "de": "Kilis",
+    "fr": "Kilis",
+    "es": "Kilis",
+    "it": "Kilis",
+    "zh": "Kilis",
+    "ar": "Kilis"
+   },
+   "biletinial": "kilis"
+  },
+  {
+   "id": "tr-osmaniye",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 37.0742,
+   "lng": 36.2478,
+   "radius_km": 25,
+   "name": {
+    "en": "Osmaniye",
+    "tr": "Osmaniye",
+    "de": "Osmaniye",
+    "fr": "Osmaniye",
+    "es": "Osmaniye",
+    "it": "Osmaniye",
+    "zh": "Osmaniye",
+    "ar": "Osmaniye"
+   },
+   "biletinial": "osmaniye"
+  },
+  {
+   "id": "tr-duzce",
+   "country_code": "TR",
+   "timezone": "Europe/Istanbul",
+   "lat": 40.8438,
+   "lng": 31.1565,
+   "radius_km": 25,
+   "name": {
+    "en": "Düzce",
+    "tr": "Düzce",
+    "de": "Düzce",
+    "fr": "Düzce",
+    "es": "Düzce",
+    "it": "Düzce",
+    "zh": "Düzce",
+    "ar": "Düzce"
+   },
+   "biletinial": "duzce"
   }
  ]
 }

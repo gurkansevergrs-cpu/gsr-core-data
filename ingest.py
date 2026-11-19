@@ -312,14 +312,17 @@ def _interleave(groups: list[list[dict]], cap: int) -> list[dict]:
     return sorted(out, key=_sort_key)
 
 
-def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at: str) -> dict:
+def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at: str,
+          extra: dict[str, list[dict]] | None = None) -> dict:
+    """raw_by_city holds raw Ticketmaster events; extra holds already normalized events (Biletinial)."""
     cities = {c["id"]: c for c in config["cities"]}
     by_city: dict[str, list[dict]] = {}
-    for city_id, raws in raw_by_city.items():
+    for city_id in sorted(set(raw_by_city) | set(extra or {})):
         city = cities[city_id]
         seen, events = set(), []
-        for raw in raws:
-            event = normalize(raw, city, synced_at)
+        candidates = [normalize(raw, city, synced_at) for raw in raw_by_city.get(city_id, [])]
+        candidates += (extra or {}).get(city_id, [])
+        for event in candidates:
             if event and event["id"] not in seen and event["status"] == "SCHEDULED":
                 seen.add(event["id"])
                 events.append(event)
@@ -359,7 +362,7 @@ def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at
         safe = re.sub(r"[^A-Za-z0-9._-]", "_", artist_id)
         _write(out / "v1" / "artists" / f"{safe}.json", {"events": sorted(tours[artist_id], key=_sort_key), "has_more": False})
 
-    meta = {"generated_at": synced_at, "source": SOURCE,
+    meta = {"generated_at": synced_at, "source": SOURCE if not extra else f"{SOURCE}, Biletinial",
             "cities": {cid: len(ev) for cid, ev in sorted(by_city.items())},
             "events_total": sum(len(ev) for ev in by_city.values()), "artists": len(ranked)}
     _write(out / "v1" / "meta.json", meta)
@@ -373,23 +376,39 @@ def main(argv=None) -> int:
     parser.add_argument("--config", default=str(Path(__file__).with_name("cities.json")))
     parser.add_argument("--fixture", help="JSON file {city_id: [raw Ticketmaster events]} used instead of the API")
     parser.add_argument("--min-events", type=int, default=1, help="fail (keep old data) below this many events")
+    parser.add_argument("--sources", default="ticketmaster,biletinial",
+                        help="comma list: ticketmaster (needs the key) and/or biletinial (Turkish cities)")
+    parser.add_argument("--extra-fixture", help="JSON file {city_id: [normalized events]} used instead of Biletinial")
     args = parser.parse_args(argv)
 
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
     now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
     synced_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    sources = {s.strip() for s in args.sources.split(",") if s.strip()}
+    raw_by_city: dict[str, list[dict]] = {}
+    extra: dict[str, list[dict]] = {}
     if args.fixture:
         raw_by_city = json.loads(Path(args.fixture).read_text(encoding="utf-8"))
-    else:
+    elif "ticketmaster" in sources:
         key = os.environ.get("TICKETMASTER_API_KEY", "").strip()
         if not key:
-            print("TICKETMASTER_API_KEY is not set.", file=sys.stderr)
-            return 2
-        raw_by_city = {}
-        for city in config["cities"]:
-            raw_by_city[city["id"]] = fetch_city(city, key, now)
-            print(f"  {city['id']}: {len(raw_by_city[city['id']])} raw events")
-    meta = build(config, raw_by_city, Path(args.out), synced_at)
+            print("TICKETMASTER_API_KEY is not set; skipping Ticketmaster.", file=sys.stderr)
+        else:
+            # Ticketmaster does not sell in Turkey; Turkish cities come from Biletinial.
+            for city in config["cities"]:
+                if city.get("biletinial"):
+                    continue
+                raw_by_city[city["id"]] = fetch_city(city, key, now)
+                print(f"  {city['id']}: {len(raw_by_city[city['id']])} raw events")
+    if args.extra_fixture:
+        extra = json.loads(Path(args.extra_fixture).read_text(encoding="utf-8"))
+    elif "biletinial" in sources and not args.fixture:
+        import biletinial
+        extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
+    if not raw_by_city and not extra and not args.fixture:
+        print("No source produced data.", file=sys.stderr)
+        return 2
+    meta = build(config, raw_by_city, Path(args.out), synced_at, extra)
     print(json.dumps(meta, ensure_ascii=False, indent=1))
     if meta["events_total"] < args.min_events:
         print(f"Only {meta['events_total']} events; refusing to publish.", file=sys.stderr)
