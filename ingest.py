@@ -368,6 +368,10 @@ def build(config: dict, raw_by_city: dict[str, list[dict]], out: Path, synced_at
             "cities": {cid: len(ev) for cid, ev in sorted(by_city.items())},
             "events_total": sum(len(ev) for ev in by_city.values()), "artists": len(ranked)}
     _write(out / "v1" / "meta.json", meta)
+    partners = Path(__file__).with_name("partners.json")
+    if partners.exists():
+        hosts = json.loads(partners.read_text(encoding="utf-8")).get("hosts", {})
+        _write(out / "v1" / "partners.json", {"hosts": hosts})
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return meta
 
@@ -378,8 +382,8 @@ def main(argv=None) -> int:
     parser.add_argument("--config", default=str(Path(__file__).with_name("cities.json")))
     parser.add_argument("--fixture", help="JSON file {city_id: [raw Ticketmaster events]} used instead of the API")
     parser.add_argument("--min-events", type=int, default=1, help="fail (keep old data) below this many events")
-    parser.add_argument("--sources", default="ticketmaster,biletinial,londontheatre",
-                        help="comma list: ticketmaster (needs the key), biletinial (Turkish cities), londontheatre (London)")
+    parser.add_argument("--sources", default="ticketmaster,biletinial,londontheatre,todaytix,songkick",
+                        help="comma list: ticketmaster (needs the key), biletinial (Turkey), londontheatre (London), todaytix (US/Sydney stage), songkick (concerts)")
     parser.add_argument("--extra-fixture", help="JSON file {city_id: [normalized events]} used instead of Biletinial")
     args = parser.parse_args(argv)
 
@@ -407,10 +411,18 @@ def main(argv=None) -> int:
     elif "biletinial" in sources and not args.fixture:
         import biletinial
         extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
-    if "londontheatre" in sources and not args.fixture and not args.extra_fixture:
-        import londontheatre
-        for city_id, events in londontheatre.collect(config["cities"], city_dto, synced_at, now.date()).items():
-            extra.setdefault(city_id, []).extend(events)
+    if not args.fixture and not args.extra_fixture:
+        import importlib
+        for name in ("londontheatre", "todaytix", "songkick"):
+            if name not in sources:
+                continue
+            try:
+                found = importlib.import_module(name).collect(config["cities"], city_dto, synced_at, now.date())
+            except Exception as err:  # one broken site must not stop the others
+                print(f"{name} failed: {err!r}", file=sys.stderr)
+                continue
+            for city_id, events in found.items():
+                extra.setdefault(city_id, []).extend(events)
     if not raw_by_city and not extra and not args.fixture:
         print("No source produced data.", file=sys.stderr)
         return 2

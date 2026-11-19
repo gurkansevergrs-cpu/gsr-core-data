@@ -100,6 +100,10 @@ def _date(value) -> dt.date | None:
         return None
 
 
+EXHIBIT_WORDS = ("exhibition", "museum", "gallery", "art fair", "frieze", "immersive")
+SKIP_WORDS = ("comedy", "stand-up", "stand up", "magic mike", "drag brunch")
+
+
 def classify(title: str, default: str | None) -> str:
     low = title.lower()
     if default:
@@ -113,8 +117,10 @@ def classify(title: str, default: str | None) -> str:
     return "THEATRE"
 
 
-def shows(page: str, default_sub: str | None, city: dict, city_dto, synced_at: str, today: dt.date) -> list[dict]:
-    """App events for the shows listed on one What's On page that run in the next HORIZON_DAYS days."""
+def shows(page: str, default_sub: str | None, city: dict, city_dto, synced_at: str, today: dt.date,
+          base: str = BASE, source: str = SOURCE, prefix: str = "lt") -> list[dict]:
+    """App events for the shows listed on one What's On page that run in the next HORIZON_DAYS days.
+    Also used for TodayTix pages (same publisher, same page data)."""
     out = []
     horizon = today + dt.timedelta(days=HORIZON_DAYS)
     for item in json_ld(page):
@@ -122,8 +128,12 @@ def shows(page: str, default_sub: str | None, city: dict, city_dto, synced_at: s
             continue
         title, url = clean(item.get("name")), _https(item.get("url"))
         start = _date(item.get("startDate"))
-        if not title or not url or not url.startswith(BASE + "/") or start is None:
+        if not title or not url or not url.startswith(base + "/") or start is None:
             continue
+        low = title.lower()
+        if any(word in low for word in SKIP_WORDS):
+            continue
+        exhibition = any(word in low for word in EXHIBIT_WORDS)
         end = _date(item.get("endDate"))
         if "Cancelled" in str(item.get("eventStatus")) or (end and end < today) or start > horizon:
             continue
@@ -131,13 +141,14 @@ def shows(page: str, default_sub: str | None, city: dict, city_dto, synced_at: s
         last = min(end, horizon) if end else horizon   # open-ended runs: show them across the whole window
         slug = url.rstrip("/").rsplit("/", 1)[-1]
         event = {
-            "id": f"lt:{slug}",
-            "title": title, "category": {"id": "THEATRE_MUSICAL"}, "subcategory": classify(title, default_sub),
+            "id": f"{prefix}:{slug}",
+            "title": title, "category": {"id": "EXHIBITION" if exhibition else "THEATRE_MUSICAL"},
+            "subcategory": "ART" if exhibition else classify(title, default_sub),
             "city": city_dto(city),
             "schedule": {"start_datetime_utc": f"{first.isoformat()}T19:30:00Z", "local_date": first.isoformat(),
                          "is_date_range": first != last, "end_date": last.isoformat()},
-            "ticket_offers": [{"provider": SOURCE, "url": url, "offer_type": "PRIMARY"}],
-            "source_attribution": {"primary_source": SOURCE, "last_synced_at": synced_at},
+            "ticket_offers": [{"provider": source, "url": url, "offer_type": "PRIMARY"}],
+            "source_attribution": {"primary_source": source, "last_synced_at": synced_at},
             "status": "SCHEDULED",
         }
         offer = item.get("offers") or {}
@@ -151,11 +162,11 @@ def shows(page: str, default_sub: str | None, city: dict, city_dto, synced_at: s
             pass
         venue = clean((item.get("location") or {}).get("name"))
         if venue:
-            event["venue"] = {"id": "lt:" + re.sub(r"[^a-z0-9]+", "-", venue.lower()).strip("-"), "name": venue,
+            event["venue"] = {"id": f"{prefix}:" + re.sub(r"[^a-z0-9]+", "-", venue.lower()).strip("-"), "name": venue,
                               "city": city_dto(city)}
         image = _https(item.get("image"))
         if image:
-            event["media"] = {"image_url": image, "attribution": SOURCE}
+            event["media"] = {"image_url": image, "attribution": source}
         out.append(event)
     return out
 

@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
 
       - name: Offline tests
-        run: python -m unittest -v test_ingest test_biletinial test_londontheatre
+        run: python -m unittest -v test_ingest test_biletinial test_londontheatre test_world_sources
 
       - name: Download and build event files
         env:

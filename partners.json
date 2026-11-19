@@ -1,0 +1,25 @@
+{
+ "_comment": "Referral/affiliate parameters added to ticket links in the app, per ticket host. Put a partner's commission code here once a programme is approved; the app picks it up on its next start. Plain letters, digits, _ . ~ - only, at most 6 parameters per host.",
+ "hosts": {
+  "biletinial.com": {
+   "utm_source": "gsrcore",
+   "utm_medium": "app",
+   "utm_campaign": "core"
+  },
+  "londontheatre.co.uk": {
+   "utm_source": "gsrcore",
+   "utm_medium": "app",
+   "utm_campaign": "core"
+  },
+  "todaytix.com": {
+   "utm_source": "gsrcore",
+   "utm_medium": "app",
+   "utm_campaign": "core"
+  },
+  "songkick.com": {
+   "utm_source": "gsrcore",
+   "utm_medium": "app",
+   "utm_campaign": "core"
+  }
+ }
+}

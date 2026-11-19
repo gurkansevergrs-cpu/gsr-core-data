@@ -50,3 +50,13 @@ of `v1/locations.json` automatically.
 ## London
 
 `londontheatre.py` reads the public What's On pages of londontheatre.co.uk (schema.org TheaterEvent data, robots.txt respected) so London works without a Ticketmaster key. Long-running shows are published as a date range over the next 90 days.
+
+## Other cities (no API key needed)
+
+- `todaytix.py`: stage shows in New York, Los Angeles, Chicago and Sydney from TodayTix city category pages (same page data as London Theatre).
+- `songkick.py`: concerts and festivals in all 27 non-Turkish cities from Songkick metro-area pages (up to 4 pages of 50 per city).
+- `webfetch.py`: shared polite fetching (robots.txt per host, 1 s spacing, retries). A source that fails is skipped; the others still publish.
+
+## Partner codes (commission)
+
+`partners.json` lists referral/affiliate parameters per ticket host. It is published as `v1/partners.json` and the app adds those parameters to ticket links for that host on its next start, never overriding a parameter the link already has. Put a commission code here once a partner programme is approved; no app update is needed.
