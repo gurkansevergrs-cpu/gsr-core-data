@@ -156,9 +156,15 @@ def _unfold(text: str) -> list[str]:
 
 def parse_ics(text: str) -> list[dict]:
     """VEVENTs as dicts: summary, start (aware datetime), location, description, url."""
-    events, current = [], None
+    events, current, nested = [], None, 0
     for line in _unfold(text):
-        if line == "BEGIN:VEVENT":
+        if line.startswith("BEGIN:") and line != "BEGIN:VEVENT" and current is not None:
+            nested += 1          # VALARM etc.: its DESCRIPTION ("Reminder") is not the play's
+        elif line.startswith("END:") and line != "END:VEVENT" and nested:
+            nested -= 1
+        elif nested:
+            continue
+        elif line == "BEGIN:VEVENT":
             current = {}
         elif line == "END:VEVENT":
             if current is not None and current.get("start") and current.get("summary"):
@@ -207,12 +213,13 @@ def production_link(ics_url: str, vevent: dict, page_url: str) -> str:
     return page_url
 
 
-def og_image(page: str | None) -> str | None:
+def og_image(page: str | None, base: str = "") -> str | None:
     if not page:
         return None
     match = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page) or \
         re.search(r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"', page)
-    return _https(html.unescape(match.group(1))) if match else None
+    url = _https(urljoin(base, html.unescape(match.group(1)))) if match else None
+    return url.replace("?w=2000", "?w=800") if url else None   # Kammerspiele serves press photos at 2000 px
 
 
 def ics_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, provider: str, default_sub: str,
@@ -229,7 +236,7 @@ def ics_events(page: str, city: dict, city_dto, synced_at: str, today: dt.date, 
                 continue
             link = production_link(ics_url, vevent, page_url)
             if link not in images and len(images) < IMAGES_PER_SOURCE and link != page_url:
-                images[link] = og_image(fetch(link))
+                images[link] = og_image(fetch(link), link)
             out.append(_event(city, city_dto, synced_at, provider, title, vevent["start"], link,
                               subcategory(title, default_sub), clean(vevent.get("location")) or provider, images.get(link)))
     return out

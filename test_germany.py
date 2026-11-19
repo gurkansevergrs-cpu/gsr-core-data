@@ -58,6 +58,22 @@ class GermanyIcsTest(unittest.TestCase):
                          "https://www.residenztheater.de/stuecke/detail/hamlet")
 
 
+class GermanyIcsDetailsTest(unittest.TestCase):
+    def test_alarm_description_does_not_replace_the_play_link(self):
+        text = "\n".join(["BEGIN:VEVENT", "DTSTART;TZID=Europe/Berlin:20261125T193000", "SUMMARY:König Lear",
+                          "DESCRIPTION:Alle Infos zum Stück: https://www.residenztheater.de/stuecke/detail/koenig-lear",
+                          "BEGIN:VALARM", "DESCRIPTION:Reminder", "END:VALARM", "END:VEVENT"])
+        vevent = germany.parse_ics(text)[0]
+        self.assertEqual(germany.production_link("https://www.residenztheater.de/calendarics.ics?a=1", vevent,
+                                                 "https://www.residenztheater.de/spielplan"),
+                         "https://www.residenztheater.de/stuecke/detail/koenig-lear")
+
+    def test_relative_poster_address_is_made_absolute(self):
+        page = '<meta property="og:image" content="/images/mephisto.jpg?w=2000" />'
+        self.assertEqual(germany.og_image(page, "https://www.muenchner-kammerspiele.de/de/programm/1-mephisto"),
+                         "https://www.muenchner-kammerspiele.de/images/mephisto.jpg?w=800")
+
+
 class GermanyJsonLdTest(unittest.TestCase):
     def test_programme_page_events(self):
         items = [{"@type": "TheaterEvent", "name": "Een Mann för all Fäll", "startDate": "2026-11-20T19:30:00+01:00",
