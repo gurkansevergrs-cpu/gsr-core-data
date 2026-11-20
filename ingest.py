@@ -447,7 +447,10 @@ def main(argv=None) -> int:
         extra = json.loads(Path(args.extra_fixture).read_text(encoding="utf-8"))
     elif "biletinial" in sources and not args.fixture:
         import biletinial
-        extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
+        try:
+            extra = biletinial.collect(config["cities"], city_dto, synced_at, now.date())
+        except Exception as err:  # Biletinial trouble must not stop the other sources
+            print(f"biletinial failed: {err!r}", file=sys.stderr)
     if not args.fixture and not args.extra_fixture:
         import importlib
         for name in ("londontheatre", "todaytix", "songkick", "germany"):

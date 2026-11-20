@@ -1,6 +1,7 @@
 """Polite page fetching shared by the listing sources: robots.txt per host, spaced requests, retries."""
 from __future__ import annotations
 
+import http.client
 import json
 import re
 import socket
@@ -24,7 +25,7 @@ def allowed(url: str) -> bool:
         socket.setdefaulttimeout(30)
         try:
             parser.read()
-        except (urllib.error.URLError, TimeoutError, OSError):
+        except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException):  # incl. ssl errors, resets
             parser = urllib.robotparser.RobotFileParser()
             parser.parse(["User-agent: *", "Disallow: /"])  # cannot read the rules: read nothing
         finally:
@@ -50,7 +51,7 @@ def get(url: str) -> str | None:
                 time.sleep(5 * (attempt + 1))
                 continue
             return None
-        except (urllib.error.URLError, TimeoutError, OSError):
+        except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException):  # incl. ssl errors, resets
             time.sleep(3 * (attempt + 1))
     return None
 

@@ -10,6 +10,7 @@ Standard library only.
 from __future__ import annotations
 
 import datetime as dt
+import http.client
 import html
 import json
 import re
@@ -43,7 +44,7 @@ def allowed(url: str) -> bool:
         _robots = urllib.robotparser.RobotFileParser(BASE + "/robots.txt")
         try:
             _robots.read()
-        except (urllib.error.URLError, TimeoutError):
+        except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException):  # incl. ssl errors, resets
             _robots = urllib.robotparser.RobotFileParser()
             _robots.parse(["User-agent: *", "Disallow: /"])
     return _robots.can_fetch(USER_AGENT, url)
@@ -66,7 +67,7 @@ def get(url: str) -> str | None:
                 time.sleep(5 * (attempt + 1))
                 continue
             return None
-        except (urllib.error.URLError, TimeoutError):
+        except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException):  # incl. ssl errors, resets
             time.sleep(3 * (attempt + 1))
     return None
 

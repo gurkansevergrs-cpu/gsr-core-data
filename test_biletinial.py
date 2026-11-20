@@ -102,5 +102,15 @@ class BalletTest(unittest.TestCase):
         self.assertEqual(biletinial.classify("opera-bale", "Tosca", "İzmir Devlet Opera ve Balesi sunar. Puccini'nin operası."),
                          ("THEATRE_MUSICAL", "OPERA"))
 
+
+class NetworkErrorTest(unittest.TestCase):
+    def test_a_dropped_secure_connection_skips_the_page_instead_of_crashing(self):
+        import ssl
+        from unittest import mock
+        with mock.patch.object(biletinial, "allowed", return_value=True), \
+                mock.patch.object(biletinial.time, "sleep"), \
+                mock.patch.object(biletinial.urllib.request, "urlopen", side_effect=ssl.SSLError("record layer failure")):
+            self.assertIsNone(biletinial.get("https://biletinial.com/tr-tr/tiyatro/x"))
+
 if __name__ == "__main__":
     unittest.main()
