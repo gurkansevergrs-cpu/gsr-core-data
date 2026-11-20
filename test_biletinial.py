@@ -112,5 +112,18 @@ class NetworkErrorTest(unittest.TestCase):
                 mock.patch.object(biletinial.urllib.request, "urlopen", side_effect=ssl.SSLError("record layer failure")):
             self.assertIsNone(biletinial.get("https://biletinial.com/tr-tr/tiyatro/x"))
 
+
+class StandUpTest(unittest.TestCase):
+    def test_stand_up_listed_under_theatre_is_left_out(self):
+        self.assertIsNone(biletinial.classify("tiyatro", "Özlem Kosif - Hayatım Yanlış Anlama",
+                                              "Özlem Kosif - Hayatım Yanlış Anlama Stand Up (Tek Kişilik Gösteri)"))
+        page = '<span>Etkinlik Türü</span> <b>Stand up</b>'
+        self.assertEqual(biletinial.page_kind(page), "stand up")
+        self.assertEqual(biletinial.performances(page, "tiyatro", {}, lambda c: c, "s", __import__("datetime").date(2026, 11, 20)), [])
+
+    def test_a_real_play_mentioning_cinema_actors_is_kept(self):
+        self.assertEqual(biletinial.classify("tiyatro", "Hamlet", "Sinema ve tiyatro oyuncusu X'in yorumuyla."),
+                         ("THEATRE_MUSICAL", "THEATRE"))
+
 if __name__ == "__main__":
     unittest.main()

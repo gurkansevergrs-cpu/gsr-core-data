@@ -51,10 +51,20 @@ BALLET_TITLES = ("kugu golu", "findikkiran", "don kisot", "giselle", "uyuyan guz
                  "coppelia", "spartakus", "esmeralda", "la sylphide", "bolero", "carmina burana")
 
 
+# Comedy formats that are not stage arts; matched in the title and in the event description.
+COMEDY_WORDS = ("stand up", "stand-up", "standup", "talk show", "tek kisilik gosteri", "tek kisilik komedi")
+
+
+def page_kind(page: str) -> str:
+    """Biletinial's own "Etkinlik Türü" (event type) fact on the event page, folded; "" when absent."""
+    match = re.search(r"Etkinlik T(?:ü|u)r(?:ü|u)\s*(?:<[^>]*>\s*)*([^<]{2,60})", page or "")
+    return fold(clean(match.group(1))) if match else ""
+
+
 def classify(list_name: str, title: str, description: str = "") -> tuple[str, str | None] | None:
     low = fold(title)
     about = fold(description)
-    if any(word in low for word in SKIP_WORDS):
+    if any(word in low for word in SKIP_WORDS) or any(word in about for word in COMEDY_WORDS):
         return None
     category, sub = LISTS[list_name]
     if list_name == "etkinlik":
@@ -163,6 +173,9 @@ def _https(url) -> str | None:
 def performances(page: str, list_name: str, cities_by_name: dict, city_dto, synced_at: str, today: dt.date) -> list[tuple[str, dict]]:
     """(city_id, app event) for every upcoming performance on one Biletinial event page."""
     out = []
+    kind = page_kind(page)
+    if any(word in kind for word in COMEDY_WORDS + ("sinema", "seminer", "egitim", "spor")):
+        return out   # e.g. "Etkinlik Türü: Stand up" listed under theatre
     for item in json_ld(page):
         if item.get("@type") != "Event":
             continue
