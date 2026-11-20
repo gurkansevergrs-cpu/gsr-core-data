@@ -62,7 +62,39 @@ DETAIL_SOURCES += [
     ("be-brussels", "https://www.lamonnaiedemunt.be/fr/calendar", r"lamonnaiedemunt\.be/fr/program/\d+-", "La Monnaie / De Munt",
      "OPERA", "THEATRE_MUSICAL"),
 ]
+DETAIL_SOURCES += [
+    # Museums' own exhibition pages (schema.org ExhibitionEvent with the run's dates).
+    ("de-berlin", "https://www.smb.museum/ausstellungen/aktuell/", r"smb\.museum/ausstellungen/detail/[^/]+/?$",
+     "Staatliche Museen zu Berlin", "ART", "EXHIBITION"),
+    ("gb-london", "https://www.vam.ac.uk/whatson", r"vam\.ac\.uk/exhibitions/[a-z0-9-]+$", "V&A", "ART", "EXHIBITION"),
+    ("us-los-angeles", "https://www.lacma.org/art/exhibitions/current", r"lacma\.org/art/exhibition/[a-z0-9-]+$", "LACMA",
+     "ART", "EXHIBITION"),
+]
 DETAIL_PAGES = 40
+EXHIBIT_LISTINGS: list = []
+# City exhibition listings from allevents.in (schema.org Event on the listing page). These mix in trade fairs,
+# so only events held in a museum or gallery are kept (MUSEUM_WORDS on the venue name).
+EXHIBIT_LISTINGS_UNUSED = [(c, f"https://allevents.in/{slug}/exhibitions") for c, slug in [
+    ("gb-london", "london"), ("gb-manchester", "manchester"), ("de-berlin", "berlin"), ("de-hamburg", "hamburg"),
+    ("de-munich", "munich"), ("us-new-york", "new-york"), ("us-los-angeles", "los-angeles"), ("us-chicago", "chicago"),
+    ("ca-toronto", "toronto"), ("au-sydney", "sydney")]]
+MUSEUM_WORDS = re.compile(r"\b(museum|museums|gallery|galleries|galerie|kunsthalle|kunsthaus|kunstverein|pinakothek|musée|museo|"
+                          r"müze|tate|institute of art|art centre|art center|arts centre|kunstmuseum|fotografiska|moma|guggenheim)\b", re.I)
+
+
+def exhibit_sub(title: str, default: str = "ART") -> str:
+    low = title.lower()
+    if re.search(r"\b(photo|photograph|fotograf|fotografie|photographie)", low):
+        return "PHOTOGRAPHY"
+    if re.search(r"\b(sculpt|skulptur|heykel)", low):
+        return "SCULPTURE"
+    if re.search(r"\b(design|fashion|mode|architect|architektur)", low):
+        return "DESIGN"
+    if re.search(r"\b(history|histor|geschichte|ancient|antike|archaeolog|archäolog|empire|reich|tarih)", low):
+        return "HISTORY"
+    if re.search(r"\b(digital|immersive|technolog|science|wissenschaft)", low):
+        return "TECHNOLOGY"
+    return default
 # Programme pages without event data whose performance links carry the date (and often the time):
 # (city, listing, link regex with y m d [H M] groups and a 'slug' group, provider, default subcategory).
 URL_DATE_SOURCES = [
@@ -80,7 +112,7 @@ URL_DATE_LINKS = 150
 SKIP = re.compile(r"\b(führung|führungen|fuehrung|workshop|werkstatt|gespräch|gespraech|einführung|einfuehrung|"
                   r"probe|kantine|lesung|party|konzert|sinfoniekonzert|kammerkonzert|kammermusik|liederabend|gutschein|"
                   r"rondleiding|visite|visites|guided tour|tour guidé)\b")
-EVENT_TYPES = ("Event", "TheaterEvent", "MusicEvent", "DanceEvent", "ComedyEvent")
+EVENT_TYPES = ("Event", "TheaterEvent", "MusicEvent", "DanceEvent", "ComedyEvent", "ExhibitionEvent", "VisualArtsEvent")
 
 
 BALLET_TITLES = ("nutcracker", "nussknacker", "casse-noisette", "swan lake", "schwanensee", "lac des cygnes", "giselle",
@@ -157,7 +189,10 @@ def _aware(value) -> dt.datetime | None:
     try:
         start = dt.datetime.fromisoformat(str(value).replace("Z", "+00:00").replace(".000000", ""))
     except ValueError:
-        return None
+        try:   # Drupal style used by LACMA: "Sun, 11/15/2026 - 12:00"
+            start = dt.datetime.strptime(str(value).strip(), "%a, %m/%d/%Y - %H:%M")
+        except ValueError:
+            return None
     if start.tzinfo is None:   # local time without offset (ITA, Opernhaus): the venue's own time zone
         try:
             from zoneinfo import ZoneInfo
@@ -199,7 +234,7 @@ def jsonld_events(page: str, city: dict, city_dto, synced_at: str, today: dt.dat
         if image:
             image = image.split("?prefix=")[0] if "prefix=staging" in image else image
         venue = clean((item.get("location") or {}).get("name")) if isinstance(item.get("location"), dict) else None
-        sub = default_sub if category == "EXHIBITION" else subcategory(title, default_sub)
+        sub = exhibit_sub(title, default_sub) if category == "EXHIBITION" else subcategory(title, default_sub)
         out.append(_event(city, city_dto, synced_at, provider, title, start, link, sub, venue or provider, image,
                           category, end))
     return out
@@ -425,6 +460,16 @@ def collect(cities: list[dict], city_dto, synced_at: str, today: dt.date | None 
         for event in found:
             result.setdefault(city_id, {})[event["id"]] = event
         log(f"  stages {provider}: {len(found)} dates")
+    for city_id, url in EXHIBIT_LISTINGS:   # empty: allevents results were mostly meet-ups, not exhibitions
+        city = by_id.get(city_id)
+        page = webfetch.get(url) if city else None
+        if not page:
+            continue
+        found = [e for e in jsonld_events(page, city, city_dto, synced_at, today, "allevents", "ART", url, "EXHIBITION")
+                 if MUSEUM_WORDS.search((e.get("venue") or {}).get("name", ""))]
+        for event in found:
+            result.setdefault(city_id, {})[event["id"]] = event
+        log(f"  stages allevents exhibitions {city_id}: {len(found)} in museums/galleries")
     for city_id, url, pattern, provider, sub in URL_DATE_SOURCES:
         city = by_id.get(city_id)
         page = webfetch.get(url) if city else None

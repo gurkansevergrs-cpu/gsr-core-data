@@ -108,5 +108,25 @@ class UrlDateTest(unittest.TestCase):
         self.assertNotIn("local_time", events[0]["schedule"])   # the link has no time
         self.assertEqual(events[0]["media"]["image_url"], "https://www.burgtheater.at/img/h.jpg")
 
+
+class ExhibitionTest(unittest.TestCase):
+    def test_running_exhibitions_show_from_today_and_trade_fairs_are_not_museums(self):
+        london = dict(HAMBURG, id="gb-london", country_code="GB")
+        items = [{"@type": "ExhibitionEvent", "name": "Two Empires: Constantinople to Istanbul", "startDate": "2026-11-07", "endDate": "2027-03-01",
+                  "location": {"name": "V&A South Kensington"}, "image": "https://www.vam.ac.uk/p.jpg"},
+                 {"@type": "ExhibitionEvent", "name": "Gone", "startDate": "2026-01-01", "endDate": "2026-02-01"}]
+        page = '<script type="application/ld+json">' + json.dumps(items) + "</script>"
+        events = germany.jsonld_events(page, london, city_dto, "s", TODAY, "V&A", "ART",
+                                       "https://www.vam.ac.uk/exhibitions/constantinople", "EXHIBITION")
+        self.assertEqual([e["title"] for e in events], ["Two Empires: Constantinople to Istanbul"])
+        e = events[0]
+        self.assertEqual(e["category"]["id"], "EXHIBITION")
+        self.assertEqual(e["subcategory"], "HISTORY")
+        self.assertEqual(e["schedule"]["local_date"], "2026-11-19")
+        self.assertEqual(e["schedule"]["end_date"], "2027-03-01")
+        self.assertTrue(germany.MUSEUM_WORDS.search("The British Museum"))
+        self.assertIsNone(germany.MUSEUM_WORDS.search("ExCeL London"))
+        self.assertIsNone(germany.MUSEUM_WORDS.search("Olympia London"))
+
 if __name__ == "__main__":
     unittest.main()
